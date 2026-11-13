@@ -151,6 +151,7 @@ button:active{transform:scale(.97)}
 @media(prefers-reduced-motion:reduce){#list>.customer{animation:none}}
 
 
+.dw-individual-group-heading,.dw-apartment-group-heading{grid-column:1/-1;display:flex;align-items:center;gap:9px;margin:8px 2px 0;padding:11px 14px;border-radius:12px;background:#eaf5ee;color:#07583b;font-size:14px;font-weight:900;letter-spacing:.2px}.dw-individual-group-heading span,.dw-apartment-group-heading span{font-size:10px;font-weight:750;color:#668575}
 .dw-shilpi-group-heading{grid-column:1/-1;display:flex;align-items:center;gap:9px;margin:8px 2px 0;padding:11px 14px;border-radius:12px;background:#fff3e8;color:#9a4d13;font-size:14px;font-weight:900;letter-spacing:.2px}.dw-shilpi-group-heading span{font-size:10px;font-weight:750;color:#a96c3e}
 /* Compact animated customer accordions + refreshed dashboard metrics */
 #list{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:12px 0 24px}
@@ -1324,13 +1325,21 @@ function renderList(){
  let q=$('search').value.toLowerCase(),f=$('filter').value;
  let arr=db.customers.filter(c=>(c.name+' '+c.location).toLowerCase().includes(q)&&(f==='all'||status(c)===f));
  const isShilpiGroup=c=>/shilpi/i.test(String(c.name||''))||/shilpi/i.test(String(c.location||''))||/^danoda$/i.test(String(c.name||''));
- const shilpiRows=arr.filter(isShilpiGroup),otherRows=arr.filter(c=>!isShilpiGroup(c));
- arr=[...otherRows,...shilpiRows];
+ // Apartment customers stay in the apartment list. Every other named customer is
+ // shown under the separate Individual Homes heading; never replace their name.
+ const isApartmentCustomer=c=>/\\b(apartment|apt)\\b/i.test(String(c.name||''));
+ const shilpiRows=arr.filter(isShilpiGroup);
+ const apartmentRows=arr.filter(c=>!isShilpiGroup(c)&&isApartmentCustomer(c));
+ const individualRows=arr.filter(c=>!isShilpiGroup(c)&&!isApartmentCustomer(c));
+ arr=[...individualRows,...apartmentRows,...shilpiRows];
  const editPairs=Object.keys(db.prices).filter(k=>k.includes('|'));
  const editOptions=selected=>'<option value="">Choose milk product</option>'+editPairs.map(k=>{const p=k.split('|');return '<option value="'+esc(k)+'" '+(k===selected?'selected':'')+'>'+esc(displayProductName({brand:p[0],type:p[1]}))+' · '+esc(p[0])+'</option>'}).join('');
  $('list').innerHTML=arr.map((c,index)=>{
   let s=status(c),initial=(c.name||'?').trim().charAt(0).toUpperCase();
-  const groupHeading=isShilpiGroup(c)&&(index===0||!isShilpiGroup(arr[index-1]))?'<div class="dw-shilpi-group-heading">Shilpi <span>Apartment + Danoda</span></div>':'';
+  const groupHeading=
+   (individualRows.includes(c)&&individualRows[0]===c?'<div class="dw-individual-group-heading">Individual Homes <span>'+individualRows.length+' customers</span></div>':'')+
+   (apartmentRows.includes(c)&&apartmentRows[0]===c?'<div class="dw-apartment-group-heading">Apartments <span>'+apartmentRows.length+' customers</span></div>':'')+
+   (isShilpiGroup(c)&&(index===0||!isShilpiGroup(arr[index-1]))?'<div class="dw-shilpi-group-heading">Shilpi <span>Apartment + Danoda</span></div>':'');
   return groupHeading+`<details class="dw-customer-card" data-customer-card="${esc(c.id)}">
    <summary class="dw-customer-summary">
     <span class="dw-avatar">${esc(initial)}</span>
