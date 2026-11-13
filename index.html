@@ -1353,7 +1353,7 @@ function buildCustomerGroups(filteredCustomers,allCustomers){
  };
  const map=new Map(),individual=[];
  (filteredCustomers||[]).forEach(c=>{const key=keyFor(c);if(!key){individual.push(c);return;}if(!map.has(key))map.set(key,[]);map.get(key).push(c);});
- const groups=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,customers])=>({key,label:(allCustomers||[]).find(x=>String(x.name||'').toLowerCase().replace(/\s+/g,' ').trim()===key)?.name||customers[0].name||key,customers:customers.sort((a,b)=>String(a.location||'').localeCompare(String(b.location||''),undefined,{numeric:true}))}));
+ const groups=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,customers])=>({key,label:(allCustomers||[]).find(x=>String(x.name||'').toLowerCase().replace(/\s+/g,' ').trim()===key)?.name||key,customers:customers.sort((a,b)=>String(a.location||'').localeCompare(String(b.location||''),undefined,{numeric:true}))}));
  if(individual.length)groups.push({key:'__individual_homes__',label:'Individual Homes',customers:individual});
  return groups;
 }
