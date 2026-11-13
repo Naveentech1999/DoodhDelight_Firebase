@@ -1327,7 +1327,7 @@ function renderList(){
  const isShilpiGroup=c=>/shilpi/i.test(String(c.name||''))||/shilpi/i.test(String(c.location||''))||/^danoda$/i.test(String(c.name||''));
  // Apartment customers stay in the apartment list. Every other named customer is
  // shown under the separate Individual Homes heading; never replace their name.
- const isApartmentCustomer=c=>/\\b(apartment|apt)\\b/i.test(String(c.name||''));
+ const isApartmentCustomer=c=>/\b(apartment|apt)\b/i.test(String(c.name||''));
  const shilpiRows=arr.filter(isShilpiGroup);
  const apartmentRows=arr.filter(c=>!isShilpiGroup(c)&&isApartmentCustomer(c));
  const individualRows=arr.filter(c=>!isShilpiGroup(c)&&!isApartmentCustomer(c));
