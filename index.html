@@ -1307,6 +1307,15 @@ const esc=s=>String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 function calcDay(date=$('date').value){let r={litres:0,amount:0,commission:0,payable:0,products:{},present:0,absent:0};let entries=db.days[date]||{};db.customers.forEach(c=>{let e=entries[c.id];if(e?.status==='present'){r.present++;c.items.forEach(it=>{let v=e.items?.[it.id]||{extra:0,returns:0},q=Math.max(0,it.qty+(+v.extra||0)-(+v.returns||0)),a=q*(isPacketItem(it)?2:1)*price(it),k=key(it);if(!isCurd(it))r.litres+=q;r.amount+=a;if(!isCurd(it))r.commission+=q*db.commission;if(!r.products[k])r.products[k]={qty:0,amount:0};r.products[k].qty+=q;r.products[k].amount+=a})}else if(e?.status==='absent')r.absent++});r.payable=r.amount-r.commission;return r}
 function refreshMetrics(){let t=calcDay();$('nCustomers').textContent=db.customers.length;$('nPresent').textContent=t.present;$('nAbsent').textContent=t.absent;$('nLitres').textContent=t.litres.toFixed(2)+' L'}
 function displayProductName(it){if(isCurd(it))return 'Heritage Curd packet';if(isSmallMilk(it))return 'Heritage Small packet';return it.brand+' '+it.type;}
+function applyKbr1GroundFloorUpdate(){
+ if(!Array.isArray(db.customers))return false;
+ const customer=db.customers.find(c=>String(c.name||'').trim().toLowerCase()==='kbr 1 apt'&&String(c.location||'').trim().toLowerCase()==='ground floor');
+ if(!customer)return false;
+ if(!Array.isArray(customer.items))customer.items=[];
+ if(customer.items.some(it=>it.id==='i54_4'))return false;
+ customer.items.push({id:'i54_4',brand:'Vijaya',type:'TM',qty:3});
+ return true;
+}
 function applyShilpiGroupUpdate(){
  const desired=[
   {id:'cust059',name:'Shilpi Apt',location:'301',items:[{id:'i59_1',brand:'Vijaya',type:'TM',qty:0.5}]},
@@ -1781,7 +1790,7 @@ $('firebaseSignIn').onclick=async()=>{if(!cloud.client)return cloudSay('Firebase
 $('firebaseSignOut').onclick=async()=>{if(!cloud.client)return;try{await firebase.auth().signOut();cloud.user=null;cloud.enabled=false;cloudSay('Signed out. Local data remains on this device.')}catch(e){cloudSay('Sign-out failed: '+e.message)}};
 $('firebaseUpload').onclick=cloudPush;$('firebaseDownload').onclick=cloudPull;
 renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();
-cloudAuth().then(()=>{if(!Array.isArray(db.customers)||db.customers.length===0){db.customers=SEED.map(c=>({...c,items:(c.items||[]).map(it=>({...it}))}));}if(applyShilpiGroupUpdate())save();renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();}).catch(err=>{console.error('Cloud startup failed',err);cloudSay('Cloud connection failed. Showing saved device customers; check More → Firebase cloud database.');if(applyShilpiGroupUpdate())save();renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();});
+cloudAuth().then(()=>{if(!Array.isArray(db.customers)||db.customers.length===0){db.customers=SEED.map(c=>({...c,items:(c.items||[]).map(it=>({...it}))}));}if((applyShilpiGroupUpdate()?1:0)|(applyKbr1GroundFloorUpdate()?1:0))save();renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();}).catch(err=>{console.error('Cloud startup failed',err);cloudSay('Cloud connection failed. Showing saved device customers; check More → Firebase cloud database.');if((applyShilpiGroupUpdate()?1:0)|(applyKbr1GroundFloorUpdate()?1:0))save();renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();});
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').catch(err => console.warn('Offline setup unavailable', err));
