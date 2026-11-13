@@ -1,1 +1,16 @@
-{"name":"Doodh Delight","short_name":"Doodh Delight","description":"Milk delivery attendance and billing","start_url":"./","display":"standalone","background_color":"#fffaf6","theme_color":"#fc8019","icons":[{"src":"./assets/doodhwala-app-icon-192.png","sizes":"192x192","type":"image/png"},{"src":"./assets/doodhwala-app-icon-512.png","sizes":"512x512","type":"image/png"}]}
+{
+  "name": "Doodh Delight",
+  "short_name": "Doodh Delight",
+  "description": "Milk delivery attendance and billing",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf6",
+  "theme_color": "#fc8019",
+  "icons": [
+    {
+      "src": "./assets/doodhwala-bike-app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
