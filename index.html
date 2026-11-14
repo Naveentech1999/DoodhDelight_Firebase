@@ -1496,32 +1496,26 @@ input:focus,select:focus,textarea:focus{
 }
 </style>
 
-<style id="dw-delivery-brand-accordion-style">
-.dw-delivery-showcase{margin:13px 0 19px;border:1px solid #e8e9eb;border-radius:19px;overflow:hidden;background:#fff;box-shadow:0 7px 22px #17191d0d}
-.dw-delivery-showcase>summary{list-style:none;display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer;background:linear-gradient(110deg,#fff9d9,#fff 75%)}
-.dw-delivery-showcase>summary::-webkit-details-marker{display:none}
-.dw-delivery-summary-icon{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:14px;background:#ffd400;font-size:22px}
-.dw-delivery-summary-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}
-.dw-delivery-summary-copy strong{font-size:13px;font-weight:900;color:#17191d}
-.dw-delivery-summary-copy small{font-size:10px;color:#747982}
-.dw-delivery-chevron{width:9px;height:9px;border-right:2px solid #555b63;border-bottom:2px solid #555b63;transform:rotate(45deg);margin:0 4px 5px;transition:transform .22s}
-.dw-delivery-showcase[open] .dw-delivery-chevron{transform:rotate(225deg);margin-bottom:-5px}
-.dw-delivery-showcase-body{padding:0 13px 14px;animation:dw-delivery-reveal .3s ease-out}
-.dw-delivery-message{min-height:94px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-radius:14px;background:linear-gradient(110deg,#252930,#3c424c);color:#fff;overflow:hidden}
-.dw-delivery-message>div{display:flex;flex-direction:column;gap:6px;max-width:66%}
-.dw-delivery-message b{font-size:13px;line-height:1.35;font-weight:850}
-.dw-delivery-message span{font-size:10px;color:#ffe36a;font-weight:700}
-.dw-delivery-message img{width:100px;height:76px;object-fit:contain;flex:0 0 100px;filter:drop-shadow(0 4px 5px #0003);animation:dw-rider-bob 2.4s ease-in-out infinite}
-.dw-delivery-brand-window{overflow:hidden;margin-top:11px;padding:2px 0}
-.dw-delivery-brand-track{display:flex;gap:9px;width:max-content;animation:dw-brand-delivery-scroll 20s linear infinite}
-.dw-delivery-brand-window:hover .dw-delivery-brand-track{animation-play-state:paused}
-.dw-delivery-brand-tile{width:105px;min-height:91px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:7px;border:1px solid #eceef0;border-radius:13px;background:#fff}
-.dw-delivery-brand-tile img{width:100%;height:55px;object-fit:contain}
-.dw-delivery-brand-tile b{font-size:10px;color:#252930;font-weight:850}
-@keyframes dw-brand-delivery-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes dw-rider-bob{0%,100%{transform:translateY(2px) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
-@keyframes dw-delivery-reveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.dw-delivery-brand-track,.dw-delivery-message img{animation:none!important}.dw-delivery-showcase-body{animation:none!important}}
+<style id="dw-delivery-carousel-style">
+.dw-delivery-carousel{margin:13px 0 19px;border-radius:19px;overflow:hidden;box-shadow:0 8px 24px #17191d12;background:#fff;position:relative}
+.dw-delivery-carousel-viewport{overflow:hidden;width:100%}
+.dw-delivery-carousel-track{display:flex;width:200%;animation:dw-delivery-carousel-slide 14s ease-in-out infinite}
+.dw-delivery-carousel-slide{width:50%;flex:0 0 50%;min-width:0;box-sizing:border-box}
+.dw-delivery-hero-slide{position:relative;background:linear-gradient(120deg,#fff7d6,#e3f8ff);min-height:150px}
+.dw-delivery-hero-slide img{display:block;width:100%;height:auto;max-height:230px;object-fit:cover}
+.dw-delivery-brand-slide{padding:10px;background:linear-gradient(135deg,#fff9df,#f4fbff)}
+.dw-delivery-brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.dw-delivery-brand-card{overflow:hidden;border-radius:13px;background:#fff;box-shadow:0 3px 12px #17212b12;border:1px solid #edf0f2}
+.dw-delivery-brand-card img{display:block;width:100%;height:118px;object-fit:cover}
+.dw-delivery-carousel-dots{position:absolute;bottom:7px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none}
+.dw-delivery-carousel-dots span{width:6px;height:6px;border-radius:50%;background:#ffffffa8;box-shadow:0 1px 3px #0004}
+.dw-delivery-carousel-dots span:first-child{animation:dw-dot-first 14s infinite}
+.dw-delivery-carousel-dots span:last-child{animation:dw-dot-second 14s infinite}
+@keyframes dw-delivery-carousel-slide{0%,42%{transform:translateX(0)}50%,92%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+@keyframes dw-dot-first{0%,42%,100%{background:#ffd400;transform:scale(1.25)}50%,92%{background:#ffffffa8;transform:scale(1)}}
+@keyframes dw-dot-second{0%,42%,100%{background:#ffffffa8;transform:scale(1)}50%,92%{background:#ffd400;transform:scale(1.25)}}
+@media(min-width:600px){.dw-delivery-hero-slide img{max-height:270px;object-fit:contain}.dw-delivery-brand-card img{height:170px}}
+@media(prefers-reduced-motion:reduce){.dw-delivery-carousel-track,.dw-delivery-carousel-dots span{animation:none!important}.dw-delivery-carousel-track{transform:none}}
 </style>
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
@@ -1534,24 +1528,24 @@ input:focus,select:focus,textarea:focus{
 <div class="tabs" style="grid-template-columns:repeat(5,1fr)"><button class="active" data-tab="register">Attendance</button><button data-tab="daily">Daily totals</button><button data-tab="monthly">Monthly bills</button><button data-tab="downloads">Download Bills</button><button data-tab="settings">Prices & backup</button></div>
 <section id="home">
  <div class="ref-page-heading"><div><h2 id="homeGreeting">Good morning 👋</h2><p>Your milk delivery overview</p></div></div>
- <details class="dw-delivery-showcase" id="dw-delivery-brand-accordion" open>
-  <summary><span class="dw-delivery-summary-icon">🥛</span><span class="dw-delivery-summary-copy"><strong>Fresh milk is on the way!</strong><small>Your favourite brands, delivered with care</small></span><span class="dw-delivery-chevron" aria-hidden="true"></span></summary>
-  <div class="dw-delivery-showcase-body">
-   <div class="dw-delivery-message"><div><b>Daily delivery, a little happiness.</b><span>Heritage · Vijaya · Amul · Jersey</span></div><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery person riding to deliver milk"></div>
-   <div class="dw-delivery-brand-window" aria-label="Milk brand images animation">
-    <div class="dw-delivery-brand-track">
-     <div class="dw-delivery-brand-tile"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-heritage.jpg?v=78" alt="Heritage milk"><b>Heritage</b></div>
-     <div class="dw-delivery-brand-tile"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-vijaya.png?v=80" alt="Vijaya milk"><b>Vijaya</b></div>
-     <div class="dw-delivery-brand-tile"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-amul.jpg?v=78" alt="Amul milk"><b>Amul</b></div>
-     <div class="dw-delivery-brand-tile"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-jersey.jpg?v=78" alt="Jersey milk"><b>Jersey</b></div>
-     <div class="dw-delivery-brand-tile" aria-hidden="true"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-heritage.jpg?v=78" alt=""><b>Heritage</b></div>
-     <div class="dw-delivery-brand-tile" aria-hidden="true"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-vijaya.png?v=80" alt=""><b>Vijaya</b></div>
-     <div class="dw-delivery-brand-tile" aria-hidden="true"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-amul.jpg?v=78" alt=""><b>Amul</b></div>
-     <div class="dw-delivery-brand-tile" aria-hidden="true"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-jersey.jpg?v=78" alt=""><b>Jersey</b></div>
-    </div>
+ <div class="dw-delivery-carousel" id="dw-delivery-carousel" aria-label="Milk delivery message and milk brands">
+  <div class="dw-delivery-carousel-viewport">
+   <div class="dw-delivery-carousel-track">
+    <section class="dw-delivery-carousel-slide dw-delivery-hero-slide" aria-label="Good morning milk delivery message">
+     <img src="https://raw.githubusercontent.com/Naveentech1999/DoodhDelight_Firebase/main/assets/Good%20Morning%20Milk%20Delivery%20Animation.gif" alt="Good morning! Fresh milk is on its way, delivered by a cheerful milk rider">
+    </section>
+    <section class="dw-delivery-carousel-slide dw-delivery-brand-slide" aria-label="Vijaya, Heritage, Amul and Jersey milk brands">
+     <div class="dw-delivery-brand-grid">
+      <div class="dw-delivery-brand-card"><img src="https://raw.githubusercontent.com/Naveentech1999/DoodhDelight_Firebase/main/assets/ChatGPT%20Image%20Nov%2014%2C%202026%2C%2001_46_58%20PM.jpg" alt="Vijaya milk brand"></div>
+      <div class="dw-delivery-brand-card"><img src="https://raw.githubusercontent.com/Naveentech1999/DoodhDelight_Firebase/main/assets/ChatGPT%20Image%20Nov%2014%2C%202026%2C%2001_47_06%20PM.jpg" alt="Heritage milk brand"></div>
+      <div class="dw-delivery-brand-card"><img src="https://raw.githubusercontent.com/Naveentech1999/DoodhDelight_Firebase/main/assets/ChatGPT%20Image%20Nov%2014%2C%202026%2C%2001_47_11%20PM.jpg" alt="Amul milk brand"></div>
+      <div class="dw-delivery-brand-card"><img src="https://raw.githubusercontent.com/Naveentech1999/DoodhDelight_Firebase/main/assets/ChatGPT%20Image%20Nov%2014%2C%202026%2C%2001_47_48%20PM.jpg" alt="Jersey milk brand"></div>
+     </div>
+    </section>
    </div>
   </div>
- </details>
+  <div class="dw-delivery-carousel-dots" aria-hidden="true"><span></span><span></span></div>
+ </div>
  <div class="ref-section-title">Milk by Brand</div><p class="muted" style="margin:0 2px 10px">Today's total milk quantity</p><div class="dw-brand-cards" id="homeBrandCards">
   <article class="dw-brand-card heritage"><div class="dw-brand-photo"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-heritage.jpg?v=78" alt="Heritage milk products" onerror="this.style.display='none';this.parentElement.classList.add('no-image')"></div><div class="dw-brand-copy"><b>Heritage</b><span>Milk quantity today</span><strong id="brandQtyHeritage">0.00 L</strong></div></article>
   <article class="dw-brand-card vijaya"><div class="dw-brand-photo"><img src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/brand-vijaya.png?v=80" alt="Vijaya milk products" onerror="this.style.display='none';this.parentElement.classList.add('no-image')"></div><div class="dw-brand-copy"><b>Vijaya</b><span>Milk quantity today</span><strong id="brandQtyVijaya">0.00 L</strong></div></article>
