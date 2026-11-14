@@ -1642,6 +1642,7 @@ table{border-radius:12px!important;overflow:hidden}
 <div class="cloud-form-grid"><div><label class="settings-label" for="firebaseEmail">Email address</label><input class="field" id="firebaseEmail" type="email" autocomplete="username" placeholder="Enter your email"></div><div><label class="settings-label" for="firebasePassword">Password</label><input class="field" id="firebasePassword" type="password" autocomplete="current-password" placeholder="Enter your password"></div></div>
 <div class="cloud-auth-actions"><button class="primary" id="firebaseSignIn">Sign in</button><button id="firebaseSignUp">Create account</button><button class="cloud-signout" id="firebaseSignOut">Sign out</button></div>
 <div class="cloud-data-actions"><button class="primary" id="firebaseUpload"><span>↑</span> Upload device data</button><button id="firebaseDownload"><span>↓</span> Download cloud data</button></div>
+<div class="cloud-data-actions" style="margin-top:9px"><button id="firebaseExportBackup" style="width:100%">↓ Download JSON backup</button></div><p class="settings-note">Downloads a copy of the saved Firebase customer and attendance data. This does not change your records.</p>
 <div class="cloud-status-wrap"><span class="cloud-status-dot"></span><p id="firebaseStatus" class="muted">Not connected. Your existing local data remains on this device.</p></div></div></details>
 </div>
 </section><p id="msg" class="muted"></p><div class="footer">Previous dates are retained separately. Unmarked and absent customers are excluded from daily and monthly bills.</div>
@@ -2195,6 +2196,25 @@ $('firebaseSignUp').onclick=async()=>{if(!cloud.client)return cloudSay('Firebase
 $('firebaseSignIn').onclick=async()=>{if(!cloud.client)return cloudSay('Firebase is not configured. Add firebase-config.js.');try{const c=await firebase.auth().signInWithEmailAndPassword($('firebaseEmail').value.trim(),$('firebasePassword').value);cloud.user=c.user;await restoreCloudForSignedInUser(c.user)}catch(e){cloudSay('Sign-in failed: '+e.message)}};
 $('firebaseSignOut').onclick=async()=>{if(!cloud.client)return;try{await firebase.auth().signOut();cloud.user=null;cloud.enabled=false;cloudSay('Signed out. Local data remains on this device.')}catch(e){cloudSay('Sign-out failed: '+e.message)}};
 $('firebaseUpload').onclick=cloudPush;$('firebaseDownload').onclick=cloudPull;
+$('firebaseExportBackup').onclick=async()=>{
+ const button=$('firebaseExportBackup');
+ if(!cloud.client||!cloud.user){cloudSay('Please sign in to Firebase before downloading a backup.');return}
+ button.disabled=true;button.textContent='Preparing backup…';cloudSay('Downloading saved Firebase data…');
+ try{
+  const snap=await firestoreDoc().get();
+  if(!snap.exists||!snap.data()?.payload){cloudSay('No saved Firebase backup was found for this account. Your records were not changed.');return}
+  const payload=snap.data().payload;
+  if(!payload||!Array.isArray(payload.customers)||!payload.days||typeof payload.days!=='object'){cloudSay('Firebase data format is not recognized. No file was downloaded.');return}
+  const backup={format:'doodh-delight-firestore-backup',version:1,exportedAt:new Date().toISOString(),data:payload};
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  const date=new Date().toISOString().slice(0,10);
+  a.href=url;a.download='DoodhDelight-Firebase-Backup-'+date+'.json';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+  cloudSay('JSON backup downloaded successfully. Upload that file here to create your Excel workbook.');
+ }catch(e){cloudSay('Backup download failed: '+e.message)}
+ finally{button.disabled=false;button.textContent='↓ Download JSON backup'}
+};
 renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();
 cloudAuth().then(()=>{if(!Array.isArray(db.customers)||db.customers.length===0){db.customers=SEED.map(c=>({...c,items:(c.items||[]).map(it=>({...it}))}));}if((applyShilpiGroupUpdate()?1:0)|(applyKbr1GroundFloorUpdate()?1:0)|(applyAmulPriceUpdate()?1:0))save();renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();}).catch(err=>{console.error('Cloud startup failed',err);cloudSay('Cloud connection failed. Showing saved device customers; check More → Firebase cloud database.');if((applyShilpiGroupUpdate()?1:0)|(applyKbr1GroundFloorUpdate()?1:0)|(applyAmulPriceUpdate()?1:0))save();renderList();renderDaily();renderPrices();fillCustomerSelect();refreshMetrics();});
 if ('serviceWorker' in navigator) {
