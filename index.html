@@ -1329,7 +1329,102 @@ header.dw-dashboard-header{
  align-self:start!important;
 }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"></head><body>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style id="dd-rapido-inspired-ui">
+/* Doodh Delight: bold yellow/charcoal delivery-app visual language */
+:root{--dd-yellow:#ffd400;--dd-yellow-soft:#fff6c7;--dd-black:#17191d;--dd-charcoal:#252930;--dd-white:#fff;--dd-muted:#747982;--dd-border:#e7e8eb;--dd-canvas:#f4f5f6;--dd-green:#13845b;--dd-red:#d94b42}
+html,body{background:var(--dd-canvas)!important;color:var(--dd-black)!important;font-family:Inter,"Segoe UI",Arial,sans-serif!important}
+body{font-size:14px!important;padding-bottom:84px!important}
+header.dw-dashboard-header{background:var(--dd-yellow)!important;color:var(--dd-black)!important;box-shadow:0 3px 0 #17191d12!important;padding:12px 16px!important;border-radius:0 0 19px 19px!important}
+header.dw-dashboard-header h1,header.dw-dashboard-header h2,header.dw-dashboard-header p,header.dw-dashboard-header div{color:var(--dd-black)!important}
+header.dw-dashboard-header h1{font-size:21px!important;font-weight:950!important;letter-spacing:-.7px!important}
+header.dw-dashboard-header:before{background:#fff!important;box-shadow:0 0 0 4px #17191d12!important}
+main{max-width:1120px!important;width:calc(100% - 22px)!important;padding:10px 0 24px!important}
+#home,#register,#daily,#monthly,#customers,#settings{color:var(--dd-black)!important}
+.title,#daily .title,#monthly .title,#settings .title{color:var(--dd-black)!important;font-size:15px!important;font-weight:950!important;letter-spacing:-.25px!important}
+.metrics{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;margin:10px 0 13px!important}
+.metric{min-height:78px!important;padding:12px 13px!important;border-radius:14px!important;background:var(--dd-white)!important;color:var(--dd-black)!important;border:1px solid var(--dd-border)!important;border-left:5px solid var(--dd-yellow)!important;box-shadow:0 3px 12px #17191d0c!important}
+.metric:after,.metric:before{content:none!important}
+.metric small{color:#737780!important;font-size:9px!important;font-weight:900!important;letter-spacing:.6px!important}
+.metric b{color:var(--dd-black)!important;font-size:25px!important;font-weight:950!important;margin-top:6px!important}
+.metric:nth-child(2){border-left-color:#3d8de0!important}
+.metric:nth-child(3){border-left-color:#ef9250!important}
+.metric:nth-child(4){border-left-color:#8b70d6!important}
+.dw-brand-cards{gap:9px!important;margin:9px 0 14px!important}
+.dw-brand-card{border:1px solid var(--dd-border)!important;border-radius:14px!important;box-shadow:0 3px 12px #17191d0d!important}
+.dw-brand-photo{height:94px!important}
+.dw-brand-copy{padding:9px 10px 11px!important}
+.dw-brand-copy b{font-size:13px!important;color:var(--dd-black)!important}
+.dw-brand-copy strong{font-size:19px!important}
+.card,#daily>.card,#monthly>.card,#settings .settings-card,#settings .settings-accordion{background:#fff!important;border:1px solid var(--dd-border)!important;border-radius:14px!important;box-shadow:0 3px 12px #17191d0b!important}
+.card{padding:12px!important;margin:9px 0!important}
+.field,input.field,select.field,textarea{min-height:40px!important;border:1px solid #dfe1e5!important;border-radius:9px!important;background:#fff!important;color:var(--dd-black)!important;font-size:13px!important}
+button{min-height:37px!important;border:1px solid #dedfe2!important;border-radius:9px!important;background:#fff!important;color:var(--dd-black)!important;font-size:12px!important;font-weight:850!important;box-shadow:none!important}
+button.primary,.primary,.tabs .active,#daily button.primary,#monthly button.primary,#settings button.primary{background:var(--dd-yellow)!important;border:1px solid var(--dd-yellow)!important;color:var(--dd-black)!important;font-weight:950!important;box-shadow:0 3px 0 #d1ad00!important}
+button:active{transform:scale(.98)!important}
+#register>.actions{gap:7px!important;margin:9px 0!important}
+#register>.actions button{min-height:40px!important}
+#list{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:9px!important;margin:9px 0 18px!important}
+.dw-customer-card{border:1px solid #e2e3e6!important;border-radius:14px!important;background:#fff!important;box-shadow:0 3px 12px #17191d0b!important}
+.dw-customer-card[open]{border-color:#e3c000!important;box-shadow:0 4px 15px #d2ad0020!important}
+.dw-customer-summary{min-height:63px!important;padding:10px 11px!important;gap:9px!important}
+.dw-avatar{width:35px!important;height:35px!important;flex-basis:35px!important;border-radius:10px!important;background:var(--dd-yellow-soft)!important;color:var(--dd-black)!important;font-weight:950!important}
+.dw-customer-head h3{font-size:13px!important;color:var(--dd-black)!important;font-weight:900!important}
+.dw-customer-head .loc{font-size:10px!important;color:#777b83!important}
+.dw-customer-head .status{font-size:9px!important;font-weight:900!important}
+.dw-expand-hint{background:var(--dd-yellow-soft)!important}
+.dw-expand-hint:before{border-color:#4c4200!important}
+.dw-customer-content{padding:0 10px 10px!important;border-top:1px solid #eee!important}
+.dw-customer-content .actions{gap:7px!important;margin:9px 0!important}
+.dw-customer-content .actions button{height:37px!important;min-height:37px!important}
+.dw-customer-content .actions button.yes{background:#e7f6ef!important;color:#08734e!important;border:1px solid #bfe7d3!important}
+.dw-customer-content .actions button.no{background:#fff0ee!important;color:#b33c33!important;border:1px solid #f2d2ce!important}
+.dw-customer-content .milk-row{gap:7px!important;padding:9px 0!important}
+.dw-customer-content .milk-row>div:first-child{font-size:12px!important;color:#292d33!important}
+.dw-customer-content .milk-row label{padding:7px 8px!important;background:#f7f7f8!important;border:1px solid #e9e9eb!important;border-radius:9px!important;font-size:9px!important}
+.dw-customer-content .milk-row input.qty{height:35px!important;font-size:16px!important;border-radius:8px!important}
+.dw-customer-content .milk-row .row-total{padding:9px 10px!important;background:#fff8d9!important;color:#4a4000!important;border:1px solid #f3e5a5!important}
+.dw-customer-content .customer-total{padding-top:9px!important}
+.dw-customer-content .customer-total b{color:#17191d!important;font-size:15px!important}
+.dw-individual-group-heading,.dw-apartment-group-heading{background:#24272d!important;color:#fff!important;border:0!important;border-radius:9px!important;padding:9px 11px!important;margin:8px 0 2px!important}
+.dw-individual-group-heading span,.dw-apartment-group-heading span{color:#f8d93b!important}
+.dw-shilpi-group-heading{background:#fff0c2!important;color:#4c3d00!important;border:1px solid #f2df9a!important;border-radius:9px!important;padding:9px 11px!important}
+.dw-bottom-nav{background:#17191d!important;border:0!important;border-radius:17px 17px 0 0!important;padding:7px 5px calc(7px + env(safe-area-inset-bottom))!important;box-shadow:0 -5px 20px #17191d25!important}
+.dw-bottom-nav button{color:#c4c6ca!important;background:transparent!important;border:0!important;min-height:46px!important;font-size:9px!important}
+.dw-bottom-nav button .dw-nav-icon{font-size:18px!important}
+.dw-bottom-nav button.active{background:var(--dd-yellow)!important;color:#17191d!important;border-radius:10px!important}
+#daily .dw-brand-block{border:1px solid var(--dd-border)!important;border-radius:11px!important}
+#daily .dw-brand-heading{background:#fff6c7!important;color:#28240f!important;border-bottom:1px solid #f1e5aa!important}
+#daily .totgrid>div{border-radius:11px!important;min-height:77px!important}
+#daily .totgrid .big{font-size:19px!important}
+#monthly .monthly-grand-total{background:#17191d!important;color:#fff!important;border-radius:11px!important}
+#monthly .monthly-grand-total *{color:#fff!important}
+#monthly th{background:#fff6c7!important;color:#29250e!important}
+#settings .settings-intro-icon,#settings .settings-accordion-icon,#settings .settings-icon{background:var(--dd-yellow-soft)!important;color:#403700!important}
+#settings .settings-eyebrow{color:#947800!important}
+#settings .settings-accordion-summary{color:#22252a!important}
+.status.present{background:#e2f6eb!important;color:#08734e!important}
+.status.absent{background:#ffebe8!important;color:#b33c33!important}
+.hint{background:#fff8df!important;border-color:#f0df9f!important;color:#594b12!important}
+.footer{color:#858991!important}
+@media(min-width:700px){
+ body{padding-bottom:24px!important}
+ .metrics{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ #list{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}
+ .dw-bottom-nav{position:sticky!important;bottom:10px!important;max-width:760px!important;margin:18px auto 0!important;border-radius:14px!important}
+ .dw-brand-cards{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(max-width:380px){
+ main{width:calc(100% - 16px)!important}
+ .metric{min-height:70px!important;padding:9px!important}
+ .metric b{font-size:22px!important}
+ .dw-customer-summary{padding:9px!important}
+ .dw-customer-content{padding-left:8px!important;padding-right:8px!important}
+ .dw-customer-content .milk-row{gap:5px!important}
+}
+@media(prefers-reduced-motion:reduce){.dw-customer-card,section{animation:none!important;transition:none!important}}
+</style>
+</head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"></div>
 </div>
