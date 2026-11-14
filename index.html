@@ -1721,7 +1721,7 @@ function renderList(){
  $('list').innerHTML=arr.map((c,index)=>{
   let s=status(c),initial=(c.name||'?').trim().charAt(0).toUpperCase();
   const groupInfo=groupById.get(c.id),group=groupInfo.group;
-  const groupHeading=groupInfo.customerIndex===0?'<details class="dw-directory-group" open><summary class="dw-directory-group-heading"><span class="dw-directory-group-icon">⌂</span><span class="dw-directory-group-name">'+esc(group.label)+'</span><span class="dw-directory-group-count">'+group.customers.length+' customers</span><span class="dw-directory-chevron" aria-hidden="true"></span></summary><div class="dw-directory-group-items">':'';
+  const groupHeading=groupInfo.customerIndex===0?'<details class="dw-directory-group"><summary class="dw-directory-group-heading"><span class="dw-directory-group-icon">⌂</span><span class="dw-directory-group-name">'+esc(group.label)+'</span><span class="dw-directory-group-count">'+group.customers.length+' customers</span><span class="dw-directory-chevron" aria-hidden="true"></span></summary><div class="dw-directory-group-items">':'';
   return groupHeading+`<details class="dw-customer-card" data-customer-card="${esc(c.id)}">
    <summary class="dw-customer-summary">
     <span class="dw-avatar">${esc(initial)}</span>
