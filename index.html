@@ -1554,7 +1554,7 @@ table{border-radius:12px!important;overflow:hidden}
 @media(max-width:420px){main{width:calc(100% - 24px)!important;padding-top:13px!important}.ref-page-heading h2,#homeGreeting{font-size:21px!important}.dw-bottom-nav button{font-size:8px!important}.metric b{font-size:21px!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
-</head><body>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script></head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"></div>
 </div>
@@ -2027,11 +2027,59 @@ async function downloadCustomerBill(x,m){
  }catch(err){say('Could not generate bill image: '+err.message)}
  finally{host.remove()}
 }
+
+async function exportFullHistoryExcel(){
+ const button=$('dd-full-history-excel-export');
+ if(!cloud.client||!cloud.user){say('Sign in to Firebase first, then export the cloud history.');return}
+ if(!window.XLSX){say('Excel export library did not load. Check your internet connection and reload.');return}
+ button.disabled=true;button.textContent='Reading Firebase…';
+ try{
+  const snap=await firestoreDoc().get();
+  const payload=snap.exists?snap.data()?.payload:null;
+  if(!payload||!Array.isArray(payload.customers)||!payload.days||typeof payload.days!=='object')throw new Error('No valid customer and attendance history found in this Firebase account.');
+  const start='2026-11-01',end=todayISO(),customers=payload.customers,days=payload.days,prices=payload.prices||{};
+  const rateFor=(it,date)=>{const k=it.brand+'|'+it.type;const amul={'Amul|TM':[60,62],'Amul|Gold':[74,78],'Amul|A2':[84,90]};if(amul[k])return date<'2026-11-13'?amul[k][0]:amul[k][1];return Number(prices[k]||0)};
+  const packet=it=>/curd|small/i.test((it.brand||'')+' '+(it.type||''));
+  const productName=it=>/curd/i.test((it.brand||'')+' '+(it.type||''))?'Heritage Curd packet':/small/i.test((it.brand||'')+' '+(it.type||''))?'Heritage Small packet':(it.brand||'')+' '+(it.type||'');
+  const summaryMap=new Map(),dailyRows=[],attendanceMap=new Map();
+  for(let d=start;d<=end;d=(function(x){const z=new Date(x+'T00:00:00');z.setDate(z.getDate()+1);return z.toISOString().slice(0,10)})(d)){
+   const day=days[d]||{};
+   for(const c of customers){
+    const e=day[c.id],status=e?.status||'unmarked';
+    let att=attendanceMap.get(c.id);if(!att){att={present:0,absent:0,unmarked:0,extraDays:0,returnDays:0};attendanceMap.set(c.id,att)}
+    if(status==='present')att.present++;else if(status==='absent')att.absent++;else att.unmarked++;
+    let hasExtra=false,hasReturn=false;
+    if(status==='present'){
+     for(const it of (c.items||[])){
+      const v=e?.items?.[it.id]||{},regular=Math.max(0,Number(it.qty)||0),extra=Math.max(0,Number(v.extra)||0),returned=Math.max(0,Number(v.returns)||0),net=Math.max(0,regular+extra-returned),factor=packet(it)?2:1,rate=rateFor(it,d),amount=net*factor*rate;
+      hasExtra ||= extra>0;hasReturn ||= returned>0;
+      const label=productName(it),key=c.id+'|'+it.id;
+      let a=summaryMap.get(key);if(!a){a={Customer:c.name||'',Location:c.location||'',Milk:label,Brand:it.brand||'',Type:it.type||'', 'Regular quantity':0,'Extra milk quantity':0,'Returned quantity':0,'Net quantity':0,'Amount (₹)':0,'Present days':0,'Absent days':0,'Extra days':0,'Return days':0};summaryMap.set(key,a)}
+      a['Regular quantity']+=regular;a['Extra milk quantity']+=extra;a['Returned quantity']+=returned;a['Net quantity']+=net;a['Amount (₹)']+=amount;
+      a['Present days']++;
+      dailyRows.push({Date:d,Customer:c.name||'',Location:c.location||'',Attendance:status,Milk:label,Brand:it.brand||'',Type:it.type||'', 'Regular quantity':regular,'Extra milk quantity':extra,'Returned quantity':returned,'Net quantity':net,'Rate (₹)':rate,'Amount (₹)':amount});
+     }
+    }else{
+     dailyRows.push({Date:d,Customer:c.name||'',Location:c.location||'',Attendance:status,Milk:'',Brand:'',Type:'','Regular quantity':0,'Extra milk quantity':0,'Returned quantity':0,'Net quantity':0,'Rate (₹)':0,'Amount (₹)':0});
+    }
+    if(hasExtra)att.extraDays++;if(hasReturn)att.returnDays++;
+   }
+  }
+  const summaryRows=[...summaryMap.values()].map(a=>{const att=attendanceMap.get(customers.find(c=>c.name===a.Customer&&c.location===a.Location)?.id)||{};a['Absent days']=att.absent||0;a['Extra days']=att.extraDays||0;a['Return days']=att.returnDays||0;return a});
+  const customerRows=customers.map(c=>{const a=attendanceMap.get(c.id)||{};const amount=summaryRows.filter(x=>x.Customer===(c.name||'')&&x.Location===(c.location||'')).reduce((n,x)=>n+x['Amount (₹)'],0);return {Customer:c.name||'',Location:c.location||'', 'Present days':a.present||0,'Absent days':a.absent||0,'Unmarked days':a.unmarked||0,'Days with extra milk':a.extraDays||0,'Days with returned milk':a.returnDays||0,'Milk total (₹)':amount,'Monthly delivery charges (₹)':0,'Grand total (₹)':amount}});
+  const wb=XLSX.utils.book_new();
+  const addSheet=(name,rows)=>{const ws=XLSX.utils.json_to_sheet(rows);ws['!cols']=rows.length?Object.keys(rows[0]).map(k=>({wch:Math.min(28,Math.max(12,k.length+3)})):[];XLSX.utils.book_append_sheet(wb,ws,name)};
+  addSheet('Customer Summary',customerRows);addSheet('Customer Milk Summary',summaryRows);addSheet('Daily Details',dailyRows);
+  XLSX.writeFile(wb,'Doodh-Delight-Delivery-History-'+start+'-to-'+end+'.xlsx');
+  say('Excel workbook downloaded from Firebase cloud data. '+customers.length+' customers included.');
+ }catch(err){say('Excel export failed: '+err.message)}
+ finally{button.disabled=false;button.textContent='Download full Excel (1 Nov – today)'}
+}
 function renderDownloadBills(){
  const m=$('downloadMonth').value||$('month').value;
  $('downloadMonth').value=m;
  const rows=monthRowsFor(m);
- $('downloadOutput').innerHTML=rows.map(x=>`<div class="customer"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><div><b>${esc(x.c.name)}</b><div class="loc">${esc(x.c.location)}</div><div class="muted">${x.present} delivered · ${x.absent} absent · ${x.extraDays} extra · ${x.returnDays} return</div></div><button class="primary" data-download-bill="${x.c.id}">Download PNG</button></div><div class="bar" style="margin-top:8px"><label class="muted">Monthly delivery charge (₹)</label><input class="field download-charge" type="number" min="0" step="1" value="${x.delivery}" data-month="${esc(m)}" data-customer="${x.c.id}" style="width:120px"><b>${money(x.total)} total</b></div></div>`).join('')||'<p class="muted">No customers found.</p>';
+ $('downloadOutput').innerHTML='<div class="card" style="margin:10px 0"><b>Full delivery history · 1 Nov 2026 to today</b><p class="muted">Reads the latest saved record directly from Firebase. Includes customer summary, product totals and day-wise attendance, extra and return quantities.</p><button type="button" class="primary" id="dd-full-history-excel-export" style="width:100%" onclick="exportFullHistoryExcel()">Download full Excel (1 Nov – today)</button></div>'+rows.map(x=>`<div class="customer"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><div><b>${esc(x.c.name)}</b><div class="loc">${esc(x.c.location)}</div><div class="muted">${x.present} delivered · ${x.absent} absent · ${x.extraDays} extra · ${x.returnDays} return</div></div><button class="primary" data-download-bill="${x.c.id}">Download PNG</button></div><div class="bar" style="margin-top:8px"><label class="muted">Monthly delivery charge (₹)</label><input class="field download-charge" type="number" min="0" step="1" value="${x.delivery}" data-month="${esc(m)}" data-customer="${x.c.id}" style="width:120px"><b>${money(x.total)} total</b></div></div>`).join('')||'<p class="muted">No customers found.</p>';
  document.querySelectorAll('.download-charge').forEach(i=>i.onchange=()=>{
   db.monthlyCharges??={};db.monthlyCharges[i.dataset.month]??={};db.monthlyCharges[i.dataset.month][i.dataset.customer]=Math.max(0,Number(i.value)||0);save();renderDownloadBills();
  });
