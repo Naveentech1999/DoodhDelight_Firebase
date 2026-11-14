@@ -1424,6 +1424,77 @@ button:active{transform:scale(.98)!important}
 }
 @media(prefers-reduced-motion:reduce){.dw-customer-card,section{animation:none!important;transition:none!important}}
 </style>
+
+<style id="dd-motion-polish">
+/* Lightweight motion polish for Doodh Delight */
+@keyframes dd-rise-in{
+ from{opacity:0;transform:translate3d(0,14px,0)}
+ to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes dd-soft-pop{
+ 0%{transform:scale(.96);opacity:.65}
+ 65%{transform:scale(1.025)}
+ 100%{transform:scale(1);opacity:1}
+}
+@keyframes dd-yellow-sheen{
+ 0%{background-position:180% 0}
+ 100%{background-position:-180% 0}
+}
+@keyframes dd-nav-pulse{
+ 0%{box-shadow:0 0 0 0 rgba(255,212,0,.42)}
+ 100%{box-shadow:0 0 0 9px rgba(255,212,0,0)}
+}
+.dw-brand-card,.metric,.dw-customer-card,.dw-customer-directory-group,.ref-card{
+ animation:dd-rise-in .48s cubic-bezier(.2,.75,.25,1) both;
+}
+.dw-brand-card:nth-child(2),.metric:nth-child(2){animation-delay:.055s}
+.dw-brand-card:nth-child(3),.metric:nth-child(3){animation-delay:.11s}
+.dw-brand-card:nth-child(4),.metric:nth-child(4){animation-delay:.165s}
+.dw-brand-card,.metric,.dw-customer-card,.dw-customer-directory-item{
+ transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+@media(hover:hover) and (pointer:fine){
+ .dw-brand-card:hover,.metric:hover,.dw-customer-card:hover,.dw-customer-directory-item:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 26px rgba(23,25,29,.10);
+ }
+}
+button,.btn,.dw-bottom-nav [data-dw-tab]{
+ transition:transform .16s ease,background-color .2s ease,box-shadow .2s ease,color .2s ease;
+}
+button:active,.btn:active{transform:scale(.97)}
+.dw-bottom-nav [data-dw-tab].active{
+ animation:dd-soft-pop .28s ease-out both;
+}
+.dw-bottom-nav [data-dw-tab].active::before{
+ content:"";
+ display:block;
+ width:22px;height:3px;
+ margin:0 auto 4px;
+ border-radius:99px;
+ background:var(--dd-yellow);
+ animation:dd-nav-pulse .55s ease-out;
+}
+header.dw-dashboard-header{
+ background-image:linear-gradient(110deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.22) 48%,rgba(255,255,255,0) 66%);
+ background-size:220% 100%;
+ animation:dd-yellow-sheen 1.4s ease-out 1;
+}
+input,select,textarea{
+ transition:border-color .18s ease,box-shadow .18s ease;
+}
+input:focus,select:focus,textarea:focus{
+ box-shadow:0 0 0 3px rgba(255,212,0,.22)!important;
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  animation-duration:.01ms!important;
+  animation-iteration-count:1!important;
+  scroll-behavior:auto!important;
+  transition-duration:.01ms!important;
+ }
+}
+</style>
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"></div>
