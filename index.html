@@ -1463,6 +1463,66 @@ header.dw-dashboard-header:before{
 .dw-brand-card.amul .dw-brand-photo.no-image{background:#f4f4f4}
 .dw-brand-card.jersey .dw-brand-photo.no-image{background:#fff0f0}
 @media(max-width:360px){.dw-brand-cards{gap:9px}.dw-brand-photo{height:108px}.dw-brand-copy{padding:9px}.dw-brand-copy strong{font-size:19px}}
+
+<style id="doodh-delight-force-header-brand-left">
+/* Pin the complete bike + wordmark lockup to the header's left edge */
+header.dw-dashboard-header{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  padding-left:12px!important;
+  padding-right:12px!important;
+}
+header.dw-dashboard-header>.bb-header-top{
+  display:flex!important;
+  flex:1 1 100%!important;
+  width:100%!important;
+  max-width:none!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+header.dw-dashboard-header .bb-brand-lockup{
+  display:flex!important;
+  flex:0 0 auto!important;
+  width:max-content!important;
+  max-width:100%!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:10px!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+header.dw-dashboard-header .bb-brand-lockup>img.dw-dashboard-logo{
+  flex:0 0 58px!important;
+  width:58px!important;
+  height:58px!important;
+  max-width:58px!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+header.dw-dashboard-header .bb-brand-lockup>.dw-dashboard-brand-copy{
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+header.dw-dashboard-header .bb-header-top,
+header.dw-dashboard-header .bb-brand-lockup,
+header.dw-dashboard-header .bb-brand-lockup>img,
+header.dw-dashboard-header .bb-brand-lockup>.dw-dashboard-brand-copy{
+  left:auto!important;
+  right:auto!important;
+}
+</style>
 </style><style id="dw-sticky-dashboard-header">
 /* Keep the dashboard brand header visible while every page scrolls */
 header.dw-dashboard-header{
