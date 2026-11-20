@@ -2204,6 +2204,50 @@ header.dw-dashboard-header{display:flex!important;flex-direction:row!important;a
 .bb-brand-lockup .dw-dashboard-brand-copy span{font-size:12px!important;line-height:1.2!important}
 </style>
 
+
+<style id="doodh-delight-larger-header-bike">
+/* Enlarge the original rider GIF while keeping the complete brand group left-aligned */
+header.dw-dashboard-header{
+  min-height:112px!important;
+  height:auto!important;
+  padding:10px 12px!important;
+  justify-content:flex-start!important;
+}
+header.dw-dashboard-header>.bb-header-top{
+  width:100%!important;
+  justify-content:flex-start!important;
+}
+header.dw-dashboard-header .bb-brand-lockup{
+  gap:12px!important;
+  justify-content:flex-start!important;
+}
+header.dw-dashboard-header .bb-brand-lockup>img.dw-dashboard-logo{
+  flex:0 0 96px!important;
+  width:96px!important;
+  height:92px!important;
+  max-width:96px!important;
+  max-height:92px!important;
+  object-fit:contain!important;
+}
+header.dw-dashboard-header .bb-brand-lockup>.dw-dashboard-brand-copy{
+  flex:0 1 auto!important;
+  min-width:0!important;
+}
+@media(max-width:380px){
+  header.dw-dashboard-header .bb-brand-lockup>img.dw-dashboard-logo{
+    flex-basis:84px!important;
+    width:84px!important;
+    height:84px!important;
+    max-width:84px!important;
+  }
+  header.dw-dashboard-header .bb-brand-lockup>.dw-dashboard-brand-copy strong{
+    font-size:21px!important;
+  }
+  header.dw-dashboard-header .bb-brand-lockup>.dw-dashboard-brand-copy span{
+    font-size:11px!important;
+  }
+}
+</style>
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider animation"></div>
