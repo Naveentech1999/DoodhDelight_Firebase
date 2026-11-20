@@ -2126,6 +2126,14 @@ header.dw-dashboard-header{display:flex!important;flex-direction:column!importan
 @media(prefers-reduced-motion:reduce){.dw-launch-splash .dw-hero-art{animation:none!important}}
 </style>
 
+
+<style id="doodh-delight-clean-milkbasket-header">
+/* Keep the original bike GIF and real app search controls; remove decorative circles/search placeholder */
+header.dw-dashboard-header:before,header.dw-dashboard-header:after{content:none!important;display:none!important;animation:none!important;box-shadow:none!important}
+header.dw-dashboard-header{background:linear-gradient(110deg,#0877D8 0%,#0877D8 72%,#258BE5 100%)!important;background-image:linear-gradient(110deg,#0877D8 0%,#0877D8 72%,#258BE5 100%)!important;overflow:hidden!important}
+.bb-search-display{display:none!important}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider animation"></div>
@@ -2136,7 +2144,6 @@ header.dw-dashboard-header{display:flex!important;flex-direction:column!importan
   <div class="bb-brand-lockup"><img class="dw-dashboard-logo" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Animated milk delivery rider"><div class="dw-dashboard-brand-copy"><strong>Doodh Delight</strong><span>Fresh milk delivered daily</span></div></div>
   <div class="bb-delivery-promise"><strong>Order by Midnight</strong><span>Delivery by 7AM! ☀️</span></div>
  </div>
- <div class="bb-search-display" aria-hidden="true"><span class="bb-search-icon">⌕</span><span>Search for milk, curd and more</span></div>
 </header><main>
 <div class="bar"><label class="muted">Select date</label><input class="field" id="date" type="date"><button id="today">Today</button></div>
 <div class="metrics"><div class="metric"><small>Delivery locations</small><b id="nCustomers">0</b></div><div class="metric"><small>Present</small><b id="nPresent">0</b></div><div class="metric"><small>Absent</small><b id="nAbsent">0</b></div><div class="metric"><small>Net milk today</small><b id="nLitres">0 L</b></div></div>
