@@ -2134,6 +2134,16 @@ header.dw-dashboard-header{background:linear-gradient(110deg,#0877D8 0%,#0877D8 
 .bb-search-display{display:none!important}
 </style>
 
+<style id="doodh-delight-left-brand-only">
+header.dw-dashboard-header{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;min-height:82px!important;padding:10px 16px!important}
+.bb-header-top{display:flex!important;align-items:center!important;justify-content:flex-start!important;width:100%!important;min-height:0!important}
+.bb-brand-lockup{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important;width:auto!important;margin:0!important}
+.bb-brand-lockup .dw-dashboard-logo{width:58px!important;height:58px!important;max-width:58px!important;flex:0 0 58px!important;object-fit:contain!important}
+.bb-brand-lockup .dw-dashboard-brand-copy{align-items:flex-start!important;text-align:left!important}
+.bb-brand-lockup .dw-dashboard-brand-copy strong{font-size:23px!important;line-height:1.15!important}
+.bb-brand-lockup .dw-dashboard-brand-copy span{font-size:12px!important;line-height:1.2!important}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider animation"></div>
@@ -2141,8 +2151,7 @@ header.dw-dashboard-header{background:linear-gradient(110deg,#0877D8 0%,#0877D8 
 <script>
 (()=>{const splash=document.getElementById("dwLaunchSplash");if(!splash)return;let closed=false;const close=()=>{if(closed)return;closed=true;splash.classList.add("is-hidden");setTimeout(()=>splash.remove(),250)};const minShow=1250;const started=performance.now();const finish=()=>{const wait=Math.max(0,minShow-(performance.now()-started));setTimeout(close,wait)};if(document.readyState==="complete")finish();else window.addEventListener("load",finish,{once:true});setTimeout(close,4500);})();</script><header class="dw-dashboard-header" aria-label="Dashboard">
  <div class="bb-header-top">
-  <div class="bb-brand-lockup"><img class="dw-dashboard-logo" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Animated milk delivery rider"><div class="dw-dashboard-brand-copy"><strong>Doodh Delight</strong><span>Fresh milk delivered daily</span></div></div>
-  <div class="bb-delivery-promise"><strong>Order by Midnight</strong><span>Delivery by 7AM! ☀️</span></div>
+  <div class="bb-brand-lockup"><img class="dw-dashboard-logo" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Animated milk delivery rider"><div class="dw-dashboard-brand-copy"><strong>Doodh wala</strong><span>Daily Milk Delivery</span></div></div>
  </div>
 </header><main>
 <div class="bar"><label class="muted">Select date</label><input class="field" id="date" type="date"><button id="today">Today</button></div>
