@@ -1686,6 +1686,33 @@ button.no,.no{background:#EEF5FC!important;border-color:#C9DDF1!important;color:
 @media(max-width:380px){main{padding-inline:10px!important}.metric{padding:12px!important}.metric b{font-size:22px!important}.dw-brand-photo{height:100px!important}#register .tools{grid-template-columns:minmax(0,1fr) 112px!important}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
+
+<style id="doodh-delight-footer-dashboard-fix">
+/* Footer and dashboard finishing adjustments */
+.footer{
+  color:#49647d!important;
+  background:#fff!important;
+  border:1px solid #D6E9FC!important;
+  border-top:1px solid #D6E9FC!important;
+  border-radius:12px!important;
+  padding:12px 14px 18px!important;
+  margin:16px 0 12px!important;
+  line-height:1.6!important;
+}
+/* Remove the yellow/orange active-tab line and header sheen */
+.dw-bottom-nav [data-dw-tab].active::before{display:none!important;content:none!important;animation:none!important}
+header.dw-dashboard-header{background-image:none!important;animation:none!important}
+header.dw-dashboard-header::before{display:none!important;content:none!important}
+/* Improve dashboard text contrast */
+#homeGreeting,.ref-page-heading h2{color:#0B3B67!important}
+.ref-page-heading p,#home .muted,.ref-section-title{color:#294d70!important}
+.metric small,.ref-card-label,.ref-quick small,.ref-quick span{color:#385b7c!important}
+/* Disable decorative greeting/light and entrance animations */
+.home-greeting-icon{animation:none!important;transform:none!important}
+.dw-brand-card,.metric,.dw-customer-card,.dw-customer-directory-group,.ref-card,
+.dw-bottom-nav [data-dw-tab].active{animation:none!important}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"></div>
