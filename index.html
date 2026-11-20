@@ -1776,6 +1776,60 @@ header.dw-dashboard-header::before{display:none!important;content:none!important
 .dw-bottom-nav [data-dw-tab].active{animation:none!important}
 </style>
 
+<style id="dd-final-header-and-brand-image-fix">
+/* Final visual overrides: keep the Amazon navy header above earlier theme rules */
+header.dw-dashboard-header{
+  background:linear-gradient(180deg,#232f3e 0%,#131921 100%)!important;
+  background-color:#131921!important;
+  color:#fff!important;
+  border-bottom:0!important;
+  box-shadow:0 5px 18px rgba(15,23,42,.24)!important;
+}
+header.dw-dashboard-header .dw-dashboard-brand-copy,
+header.dw-dashboard-header .dw-dashboard-brand-copy strong,
+header.dw-dashboard-header .dw-dashboard-brand-copy span,
+header.dw-dashboard-header h1,
+header.dw-dashboard-header h2,
+header.dw-dashboard-header p{color:#fff!important}
+/* Keep the four milk-brand cards compact; contain product photos inside each card */
+#home .dw-brand-cards{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+#home .dw-brand-card{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  min-width:0!important;
+  padding:8px!important;
+  overflow:hidden!important;
+}
+#home .dw-brand-photo{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:88px!important;
+  min-height:88px!important;
+  flex:0 0 88px!important;
+  padding:5px!important;
+  overflow:hidden!important;
+}
+#home .dw-brand-photo img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+}
+#home .dw-brand-copy{width:100%!important;min-width:0!important;padding:8px 4px 4px!important}
+@media(min-width:700px){
+  #home .dw-brand-cards{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"></div>
