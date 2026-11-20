@@ -2104,12 +2104,40 @@ td,th{border-color:#E8EEF3!important}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 
+
+<style id="doodh-delight-bigbasket-screen-match">
+/* Match the supplied Milk Basket reference: branded header, promise, search and delivery-truck splash */
+header.dw-dashboard-header{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:15px!important;min-height:0!important;padding:18px 16px 17px!important;border-radius:0 0 0 0!important}
+.bb-header-top{display:flex;align-items:center;justify-content:space-between;gap:9px;min-height:58px}
+.bb-brand-lockup{display:flex;align-items:center;gap:8px;min-width:0}
+.bb-brand-lockup .dw-dashboard-logo{width:48px!important;height:48px!important;max-width:48px!important;flex:0 0 48px!important;animation:none!important}
+.bb-brand-lockup .dw-dashboard-brand-copy{gap:2px!important;min-width:0}
+.bb-brand-lockup .dw-dashboard-brand-copy strong{font-size:clamp(20px,5.4vw,27px)!important;letter-spacing:-.8px!important;white-space:nowrap}
+.bb-brand-lockup .dw-dashboard-brand-copy span{font-size:10px!important;white-space:nowrap}
+.bb-delivery-promise{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex:0 0 auto;color:#fff;line-height:1.2}
+.bb-delivery-promise strong{font-size:clamp(11px,3.1vw,15px);font-weight:950;white-space:nowrap}
+.bb-delivery-promise span{font-size:clamp(10px,2.9vw,14px);font-weight:900;color:#FFD84D;white-space:nowrap}
+.bb-search-display{height:51px;display:flex;align-items:center;gap:12px;padding:0 15px;border:1px solid #DCE5EC;border-radius:14px;background:#fff;color:#747D85;box-shadow:0 3px 10px #003e7912;font-size:15px;font-weight:600}
+.bb-search-icon{font-size:28px;line-height:1;color:#3D454C;transform:rotate(-20deg)}
+.dw-launch-splash{background:#fff!important}
+.dw-launch-splash .dw-hero-window{inset:0!important;background:#fff!important}
+.dw-launch-splash .dw-hero-art{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}
+@media(max-width:370px){header.dw-dashboard-header{padding-left:12px!important;padding-right:12px!important}.bb-brand-lockup{gap:5px}.bb-brand-lockup .dw-dashboard-logo{width:41px!important;height:41px!important;flex-basis:41px!important}.bb-delivery-promise strong{font-size:10px}.bb-delivery-promise span{font-size:9px}.bb-search-display{height:47px}}
+@media(prefers-reduced-motion:reduce){.dw-launch-splash .dw-hero-art{animation:none!important}}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
- <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"></div>
+ <div class="dw-hero-window"><img class="dw-hero-art" src="./assets/Good%20Morning%20Milk%20Delivery%20Animation.gif" alt="Animated four-wheel milk delivery vehicle"></div>
 </div>
 <script>
-(()=>{const splash=document.getElementById("dwLaunchSplash");if(!splash)return;let closed=false;const close=()=>{if(closed)return;closed=true;splash.classList.add("is-hidden");setTimeout(()=>splash.remove(),250)};const minShow=1250;const started=performance.now();const finish=()=>{const wait=Math.max(0,minShow-(performance.now()-started));setTimeout(close,wait)};if(document.readyState==="complete")finish();else window.addEventListener("load",finish,{once:true});setTimeout(close,4500);})();</script><header class="dw-dashboard-header" aria-label="Dashboard"><img class="dw-dashboard-logo" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"><div class="dw-dashboard-brand-copy"><strong>Doodhwala</strong><span>Daily Milk Delivery</span></div></header><main>
+(()=>{const splash=document.getElementById("dwLaunchSplash");if(!splash)return;let closed=false;const close=()=>{if(closed)return;closed=true;splash.classList.add("is-hidden");setTimeout(()=>splash.remove(),250)};const minShow=1250;const started=performance.now();const finish=()=>{const wait=Math.max(0,minShow-(performance.now()-started));setTimeout(close,wait)};if(document.readyState==="complete")finish();else window.addEventListener("load",finish,{once:true});setTimeout(close,4500);})();</script><header class="dw-dashboard-header" aria-label="Dashboard">
+ <div class="bb-header-top">
+  <div class="bb-brand-lockup"><img class="dw-dashboard-logo" src="./assets/doodhwala-bike-app-icon.svg" alt="Doodh Delight logo"><div class="dw-dashboard-brand-copy"><strong>Doodh Delight</strong><span>Fresh milk delivered daily</span></div></div>
+  <div class="bb-delivery-promise"><strong>Order by Midnight</strong><span>Delivery by 7AM! ☀️</span></div>
+ </div>
+ <div class="bb-search-display" aria-hidden="true"><span class="bb-search-icon">⌕</span><span>Search for milk, curd and more</span></div>
+</header><main>
 <div class="bar"><label class="muted">Select date</label><input class="field" id="date" type="date"><button id="today">Today</button></div>
 <div class="metrics"><div class="metric"><small>Delivery locations</small><b id="nCustomers">0</b></div><div class="metric"><small>Present</small><b id="nPresent">0</b></div><div class="metric"><small>Absent</small><b id="nAbsent">0</b></div><div class="metric"><small>Net milk today</small><b id="nLitres">0 L</b></div></div>
 <div class="tabs" style="grid-template-columns:repeat(5,1fr)"><button class="active" data-tab="register">Attendance</button><button data-tab="daily">Daily totals</button><button data-tab="monthly">Monthly bills</button><button data-tab="downloads">Download Bills</button><button data-tab="settings">Prices & backup</button></div>
