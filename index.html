@@ -1868,6 +1868,129 @@ header.dw-dashboard-header p{color:#fff!important}
 }
 </style>
 
+
+<style id="doodh-delight-zomato-inspired-ui">
+/* Full-app visual refresh: food-discovery inspired, without changing app behavior */
+:root{
+ --dd-red:#E23744;--dd-red-dark:#C92D3A;--dd-red-soft:#FFF0F1;
+ --dd-ink:#202127;--dd-muted:#777982;--dd-line:#ECEDEF;
+ --dd-surface:#FFFFFF;--dd-canvas:#F7F7F8;
+}
+html{background:var(--dd-canvas)!important;scroll-behavior:smooth}
+body{background:var(--dd-canvas)!important;color:var(--dd-ink)!important;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif!important;padding-bottom:calc(90px + env(safe-area-inset-bottom))!important}
+main{width:100%!important;max-width:820px!important;margin:0 auto!important;padding:14px 15px 28px!important}
+header.dw-dashboard-header{
+ position:sticky!important;top:0!important;z-index:80!important;
+ min-height:94px!important;height:auto!important;padding:12px 17px!important;
+ display:flex!important;align-items:center!important;gap:12px!important;
+ color:#fff!important;background:linear-gradient(120deg,#B91F32 0%,#E23744 58%,#F05A62 100%)!important;
+ border:0!important;border-radius:0 0 20px 20px!important;
+ box-shadow:0 7px 22px rgba(180,35,52,.19)!important;
+ animation:dd-red-header-in .65s ease-out both!important;
+}
+header.dw-dashboard-header:before,header.dw-dashboard-header:after{display:block!important;content:""!important;position:absolute!important;z-index:0!important;pointer-events:none!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:50%!important;width:190px!important;height:190px!important;right:-60px!important;top:-128px!important;box-shadow:0 0 0 18px rgba(255,255,255,.035),0 0 0 38px rgba(255,255,255,.025)!important;animation:dd-header-orbit 26s linear infinite!important}
+header.dw-dashboard-header:after{width:130px!important;height:130px!important;right:26%!important;top:-91px!important;animation-duration:32s!important;animation-direction:reverse!important}
+header.dw-dashboard-header img.dw-dashboard-logo{position:relative!important;z-index:1!important;width:82px!important;height:66px!important;max-width:30vw!important;object-fit:contain!important;filter:drop-shadow(0 4px 8px #6d132c55)!important;animation:dd-logo-bob 3.6s ease-in-out infinite!important}
+header.dw-dashboard-header .dw-dashboard-brand-copy{position:relative!important;z-index:1!important;display:flex!important;flex-direction:column!important;gap:3px!important}
+header.dw-dashboard-header .dw-dashboard-brand-copy strong{font-size:24px!important;font-weight:900!important;letter-spacing:-.7px!important;color:#fff!important}
+header.dw-dashboard-header .dw-dashboard-brand-copy span{font-size:11px!important;letter-spacing:.3px!important;color:#FFE7E9!important}
+main>.bar:has(#date){display:flex!important;align-items:center!important;gap:9px!important;padding:11px 12px!important;margin:0 0 14px!important;background:#fff!important;border:1px solid var(--dd-line)!important;border-radius:15px!important;box-shadow:0 3px 13px #25283308!important}
+main>.bar:has(#date) label{font-size:11px!important;color:var(--dd-muted)!important;font-weight:750!important}
+#date{flex:1!important;min-width:0!important;background:#FAFAFB!important;border:1px solid var(--dd-line)!important;color:var(--dd-ink)!important}
+#today,button.primary,.primary,.yes{background:var(--dd-red)!important;border-color:var(--dd-red)!important;color:#fff!important}
+button.primary:hover,.primary:hover,#today:hover{background:var(--dd-red-dark)!important}
+.metrics{gap:10px!important;margin:0 0 17px!important}
+.metric{background:#fff!important;border:1px solid var(--dd-line)!important;border-radius:16px!important;padding:14px!important;min-height:86px!important;box-shadow:0 3px 14px #25283308!important;animation:dd-card-enter .45s ease both!important}
+.metric:after{background:var(--dd-red-soft)!important}
+.metric small{color:var(--dd-muted)!important;font-size:10px!important;font-weight:750!important}
+.metric b{color:var(--dd-red)!important;font-size:24px!important;font-weight:900!important}
+.tabs{display:none!important}
+#home,#register,#daily,#monthly,#downloads,#customers,#settings{min-height:50vh;animation:dd-section-enter .35s ease both}
+.ref-page-heading{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:8px 2px 13px!important}
+#homeGreeting,.ref-page-heading h2{color:var(--dd-ink)!important;font-size:24px!important;font-weight:900!important;letter-spacing:-.7px!important}
+.ref-page-heading p{color:var(--dd-muted)!important;font-size:12px!important}
+.dw-heritage-feature{margin:8px 0 19px!important;border:1px solid #F4DADD!important;border-radius:18px!important;background:linear-gradient(135deg,#FFF1F2,#FFF9F9)!important;box-shadow:0 5px 18px #E2374410!important;overflow:hidden!important}
+.dw-heritage-feature img{display:block!important;width:100%!important;height:auto!important;object-fit:contain!important}
+.ref-section-title{color:var(--dd-ink)!important;font-size:16px!important;font-weight:900!important;letter-spacing:-.25px!important}
+#home .muted,.ref-page-heading p{color:var(--dd-muted)!important}
+.dw-brand-cards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important;margin:12px 0 20px!important}
+.dw-brand-card{min-width:0!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;background:#fff!important;border:1px solid var(--dd-line)!important;border-radius:17px!important;box-shadow:0 4px 16px #2528330A!important;animation:dd-card-enter .48s ease both!important;transition:transform .2s ease,box-shadow .2s ease!important}
+.dw-brand-card:active{transform:scale(.985)!important}
+.dw-brand-photo{height:105px!important;min-height:105px!important;flex:0 0 105px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:7px!important;background:#FAFAFB!important;overflow:hidden!important}
+.dw-brand-photo img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+.dw-brand-copy{background:#fff!important;padding:9px 10px 11px!important}
+.dw-brand-copy b{color:var(--dd-ink)!important;font-size:14px!important;font-weight:850!important}
+.dw-brand-copy span{color:var(--dd-muted)!important;font-size:11px!important}
+.dw-brand-copy strong{color:var(--dd-red)!important;font-size:16px!important;font-weight:900!important}
+.ref-card,.ref-quick,.dw-customer-directory-group,.card,.monthly-share-card,.monthly-shell{
+ background:#fff!important;border:1px solid var(--dd-line)!important;border-radius:17px!important;box-shadow:0 4px 16px #2528330A!important;
+}
+.ref-card-label,.ref-quick small,.ref-quick span,.muted{color:var(--dd-muted)!important}
+.ref-big,.ref-split strong,.ref-quick b,.card .title{color:var(--dd-ink)!important}
+.ref-split .orange,.orange{color:var(--dd-red)!important}
+#register .tools{display:grid!important;grid-template-columns:minmax(0,1fr) 118px!important;gap:9px!important;margin-bottom:10px!important}
+#search,#filter,#refCustomerSearch{width:100%!important;min-width:0!important;min-height:45px!important;background:#fff!important;border:1px solid var(--dd-line)!important;border-radius:13px!important}
+#register>.actions{gap:8px!important}
+#register>.actions button,#register .actions button,.dw-customer-body .actions button{min-height:43px!important;border-radius:12px!important;font-weight:800!important}
+button,.field,input,select,textarea{border-radius:12px!important}
+.field,input,select,textarea{border-color:#E4E5E8!important;background:#fff!important;color:var(--dd-ink)!important}
+.field:focus,input:focus,select:focus,textarea:focus{outline:0!important;border-color:#E23744!important;box-shadow:0 0 0 3px #E2374418!important}
+.card,#list>.customer,.dw-customer{background:#fff!important;border:1px solid var(--dd-line)!important;border-radius:16px!important;box-shadow:0 3px 14px #25283309!important;overflow:hidden}
+#list>.customer h3,.dw-cust-name{color:var(--dd-ink)!important}
+.dw-avatar{background:#FFF0F1!important;color:var(--dd-red)!important}
+.dw-cust-status.present,#list>.customer .status.present{background:#EAF8EF!important;color:#21864B!important}
+.dw-customer-body{background:#fff!important}
+.dw-customer-body .actions button.yes,.actions button.yes{background:var(--dd-red)!important;color:#fff!important;border-color:var(--dd-red)!important}
+.dw-customer-body .actions button.no,.actions button.no{background:#FFF0F1!important;color:#C52B38!important;border-color:#F6D4D7!important}
+#list>.customer .milk-row .row-total,.dw-customer-body .milk-row .row-total{background:#FFF5F5!important;border:1px solid #F6DADC!important;color:#A92331!important}
+#list>.customer .customer-total b{color:var(--dd-red)!important}
+.hint{background:#FFF6F6!important;border:1px solid #F5DADD!important;border-radius:13px!important;color:#8E303A!important}
+#daily .totgrid>div{background:#FFF8F8!important;border:1px solid #F5E1E3!important;border-radius:13px!important}
+#monthOutput{border-radius:14px!important}
+#monthly .monthly-kicker,.settings-eyebrow{color:var(--dd-red)!important}
+#monthly .monthly-icon,.settings-intro-icon{background:var(--dd-red-soft)!important;color:var(--dd-red)!important}
+.settings-accordion,.settings-accordion-summary,.add-customer-card{border-radius:15px!important}
+table{border-collapse:separate!important;border-spacing:0!important;overflow:hidden!important;border-radius:12px!important}
+th{background:#FFF0F1!important;color:#8F2732!important}
+td,th{border-color:#F0E6E7!important}
+.footer{background:#fff!important;border:1px solid var(--dd-line)!important;border-radius:12px!important;color:var(--dd-muted)!important;padding:12px 14px 18px!important}
+.dw-bottom-nav{
+ position:fixed!important;z-index:110!important;left:10px!important;right:10px!important;bottom:calc(8px + env(safe-area-inset-bottom))!important;
+ width:auto!important;max-width:800px!important;margin:0 auto!important;
+ display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;
+ padding:7px 6px!important;background:#FFFFFFF2!important;border:1px solid #ECEDEF!important;
+ border-radius:18px!important;box-shadow:0 5px 28px #22242B20!important;backdrop-filter:blur(18px)!important;
+}
+.dw-bottom-nav button{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;min-width:0!important;min-height:50px!important;padding:4px 2px!important;border:0!important;border-radius:13px!important;background:transparent!important;color:#777982!important;font-size:9px!important;font-weight:750!important;box-shadow:none!important}
+.dw-bottom-nav button .dw-nav-icon{font-size:19px!important;line-height:1.1!important;filter:none!important}
+.dw-bottom-nav button.active{background:var(--dd-red-soft)!important;color:var(--dd-red)!important}
+.dw-bottom-nav button.active .dw-nav-icon{filter:none!important}
+.dw-bottom-nav button.active span:last-child{font-weight:900!important}
+.dw-bottom-nav [data-dw-tab].active:before{display:none!important;content:none!important}
+@keyframes dd-red-header-in{from{opacity:.75;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dd-header-orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes dd-logo-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes dd-card-enter{from{opacity:.65;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dd-section-enter{from{opacity:.75;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:700px){
+ body{padding-bottom:30px!important}
+ .metrics{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .dw-bottom-nav{position:sticky!important;left:auto!important;right:auto!important;bottom:12px!important;width:min(100% - 40px,760px)!important;margin:20px auto!important}
+ #home .dw-brand-cards{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .dw-brand-photo{height:125px!important;min-height:125px!important;flex-basis:125px!important}
+}
+@media(max-width:390px){
+ main{padding-left:11px!important;padding-right:11px!important}
+ .metric{padding:11px!important}.metric b{font-size:21px!important}
+ .dw-brand-photo{height:92px!important;min-height:92px!important;flex-basis:92px!important}
+ #register .tools{grid-template-columns:minmax(0,1fr) 105px!important}
+ .dw-bottom-nav{left:7px!important;right:7px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider on scooter"></div>
