@@ -2408,6 +2408,68 @@ button:focus-visible,.field:focus-visible,.qty:focus-visible{box-shadow:0 0 0 .2
 .dw-bottom-nav button.active{background:#eaf4ff!important;color:#1769b2!important}
 </style>
 
+
+<style id="doodh-delight-final-button-cleanup">
+/* Final override: remove inherited orange/yellow button fills, borders and glow. */
+html body button,
+html body button:hover,
+html body button:active,
+html body button:focus,
+html body button:focus-visible,
+html body button.primary,
+html body button.yes,
+html body .primary,
+html body .yes,
+html body #daily #previewDaily,
+html body input[type="button"],
+html body input[type="submit"],
+html body input[type="reset"],
+html body [role="button"] {
+  background: #1769b2 !important;
+  background-image: none !important;
+  border-color: #1769b2 !important;
+  border-bottom-color: #1769b2 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+html body button:hover,
+html body button:active,
+html body button:focus,
+html body button:focus-visible,
+html body button.primary:hover,
+html body button.yes:hover,
+html body .primary:hover,
+html body .yes:hover,
+html body #daily #previewDaily:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+html body button:focus-visible,
+html body input[type="button"]:focus-visible,
+html body input[type="submit"]:focus-visible,
+html body input[type="reset"]:focus-visible,
+html body [role="button"]:focus-visible {
+  outline: 2px solid #8a9690 !important;
+  outline-offset: 2px !important;
+}
+html body .dw-bottom-nav button,
+html body .dw-bottom-nav button:hover,
+html body .dw-bottom-nav button:focus,
+html body .dw-bottom-nav button:active {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+html body .dw-bottom-nav button.active {
+  background: #eaf4ff !important;
+  color: #1769b2 !important;
+}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider animation"></div>
