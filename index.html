@@ -2352,6 +2352,30 @@ section{animation:bootstrapFadeUp .32s ease both}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 
+
+<style id="doodh-delight-blue-buttons">
+/* Consistent blue action-button palette across every screen; layout and behavior unchanged. */
+:root{--bs-primary:#1769b2;--bs-primary-rgb:23,105,178}
+.primary,.tabs .active,.yes,
+button.primary,button.yes,
+#daily button.primary,#monthly button.primary,#settings button.primary,#daily #previewDaily,
+.dw-bottom-nav button.active{
+ background:linear-gradient(135deg,#125b9d,#287fc4)!important;
+ background-color:#1769b2!important;
+ border-color:#1769b2!important;
+ color:#fff!important;
+}
+.primary:hover,.tabs .active:hover,.yes:hover,
+button.primary:hover,button.yes:hover,
+#daily button.primary:hover,#monthly button.primary:hover,#settings button.primary:hover,#daily #previewDaily:hover{
+ background:linear-gradient(135deg,#0e4f8b,#1769b2)!important;
+ border-color:#125b9d!important;
+}
+button:focus-visible,.field:focus-visible,.qty:focus-visible{box-shadow:0 0 0 .22rem #1769b233!important;border-color:#1769b2!important}
+.field:focus,.qty:focus,select.field:focus{border-color:#1769b2!important;box-shadow:0 0 0 .2rem #1769b222!important}
+.dw-bottom-nav button.active{background:#eaf4ff!important;color:#1769b2!important}
+</style>
+
 </head><body>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider animation"></div>
