@@ -2603,6 +2603,8 @@ function buildCustomerGroups(filteredCustomers,allCustomers){
  const keyFor=c=>{
   const name=String(c.name||c.customerName||c.customer_name||c.fullName||c.customer||'').trim();
   const loc=String(c.location||c.address||c.floor||'').trim();
+  // Keep KBR 1 APT flat-number customers grouped with the original Ground floor record.
+  if(c.id==='cust054'||/^cust08[3-9]$/.test(String(c.id||''))||c.id==='cust090')return 'kbr 1 apt';
   if(aptWords.test(name))return name.toLowerCase().replace(/\s+/g,' ').trim();
   if(aptWords.test(loc)){const m=loc.match(/^(.+?\b(?:apartment|apartments|apt|residency|residences|towers|tower|heights|enclave|complex|flats)\b)/i);return (m?m[1]:loc).toLowerCase().replace(/\s+/g,' ').trim();}
   const alias=known.find(x=>x.alias&&(loc.toLowerCase()===x.alias||loc.toLowerCase().startsWith(x.alias+' ')));
@@ -2610,7 +2612,11 @@ function buildCustomerGroups(filteredCustomers,allCustomers){
  };
  const map=new Map(),individual=[];
  (filteredCustomers||[]).forEach(c=>{const key=keyFor(c);if(!key){individual.push(c);return;}if(!map.has(key))map.set(key,[]);map.get(key).push(c);});
- const groups=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,customers])=>({key,label:(allCustomers||[]).find(x=>String(x.name||'').toLowerCase().replace(/\s+/g,' ').trim()===key)?.name||key,customers:customers.sort((a,b)=>String(a.location||'').localeCompare(String(b.location||''),undefined,{numeric:true}))}));
+ const groups=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,customers])=>({key,label:(allCustomers||[]).find(x=>String(x.name||'').toLowerCase().replace(/\s+/g,' ').trim()===key)?.name||key,customers:customers.sort((a,b)=>{
+   const rank=c=>c.id==='cust054'?0:c.id==='cust083'||c.id==='cust084'||c.id==='cust085'?1:c.id==='cust086'?2:c.id==='cust087'||c.id==='cust088'||c.id==='cust089'?3:4;
+   const diff=rank(a)-rank(b);
+   return diff||String(a.location||'').localeCompare(String(b.location||''),undefined,{numeric:true})||String(a.name||'').localeCompare(String(b.name||''),undefined,{numeric:true});
+  })}));
  if(individual.length)groups.push({key:'__individual_homes__',label:'Individual Homes',customers:individual});
  return groups;
 }
