@@ -2608,7 +2608,7 @@ function buildCustomerGroups(filteredCustomers,allCustomers){
  };
  const map=new Map(),individual=[];
  (filteredCustomers||[]).forEach(c=>{const key=keyFor(c);if(!key){individual.push(c);return;}if(!map.has(key))map.set(key,[]);map.get(key).push(c);});
- const groups=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,customers])=>({key,label:(allCustomers||[]).find(x=>String(x.name||'').toLowerCase().replace(/\s+/g,' ').trim()===key)?.name||key,customers:customers.sort((a,b)=>{
+ const groups=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,customers])=>({key,label:key==='kbr 1 apt'?'KBR 1 APT':(allCustomers||[]).find(x=>String(x.name||'').toLowerCase().replace(/\s+/g,' ').trim()===key)?.name||key,customers:customers.sort((a,b)=>{
    const rank=c=>c.id==='cust083'||c.id==='cust084'||c.id==='cust085'?0:c.id==='cust086'?1:c.id==='cust087'||c.id==='cust088'||c.id==='cust089'?2:3;
    const diff=rank(a)-rank(b);
    return diff||String(a.location||'').localeCompare(String(b.location||''),undefined,{numeric:true})||String(a.name||'').localeCompare(String(b.name||''),undefined,{numeric:true});
