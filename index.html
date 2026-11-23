@@ -2534,14 +2534,14 @@ function displayProductName(it){if(isCurd(it))return 'Heritage Curd packet';if(i
 function applyKbr1PacketCustomerUpdate(){
  if(!Array.isArray(db.customers))return false;
  const desired=[
-  {id:'cust083',name:'301',location:'3rd floor',items:[{id:'i83_1',brand:'Vijaya',type:'CM',qty:1.5,pricePerLitre:64}]},
-  {id:'cust084',name:'302',location:'3rd floor',items:[{id:'i84_1',brand:'Amul',type:'TM',qty:1,pricePerLitre:62}]},
-  {id:'cust085',name:'304',location:'3rd floor',items:[{id:'i85_1',brand:'Vijaya',type:'TM',qty:1.5,pricePerLitre:64}]},
-  {id:'cust086',name:'402',location:'4th floor',items:[{id:'i86_1',brand:'Heritage',type:'TM',qty:1,pricePerLitre:66}]},
-  {id:'cust087',name:'501',location:'5th floor',items:[{id:'i87_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]},
-  {id:'cust088',name:'502',location:'5th floor',items:[{id:'i88_1',brand:'Heritage',type:'TM',qty:0.5,pricePerLitre:66}]},
-  {id:'cust089',name:'504',location:'5th floor',items:[{id:'i89_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]},
-  {id:'cust090',name:'Watchman',location:'Watchman',items:[{id:'i90_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]}
+  {id:'cust083',name:'KBR 1 APT',location:'3rd floor',items:[{id:'i83_1',brand:'Vijaya',type:'CM',qty:1.5,pricePerLitre:64}]},
+  {id:'cust084',name:'KBR 1 APT',location:'3rd floor',items:[{id:'i84_1',brand:'Amul',type:'TM',qty:1,pricePerLitre:62}]},
+  {id:'cust085',name:'KBR 1 APT',location:'3rd floor',items:[{id:'i85_1',brand:'Vijaya',type:'TM',qty:1.5,pricePerLitre:64}]},
+  {id:'cust086',name:'KBR 1 APT',location:'4th floor',items:[{id:'i86_1',brand:'Heritage',type:'TM',qty:1,pricePerLitre:66}]},
+  {id:'cust087',name:'KBR 1 APT',location:'5th floor',items:[{id:'i87_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]},
+  {id:'cust088',name:'KBR 1 APT',location:'5th floor',items:[{id:'i88_1',brand:'Heritage',type:'TM',qty:0.5,pricePerLitre:66}]},
+  {id:'cust089',name:'KBR 1 APT',location:'5th floor',items:[{id:'i89_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]},
+  {id:'cust090',name:'KBR 1 APT',location:'Watchman',items:[{id:'i90_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]}
  ];
  let changed=false;
  // Remove only the old KBR 1 Ground floor customer. Keep all attendance history untouched.
@@ -2557,7 +2557,7 @@ function applyKbr1PacketCustomerUpdate(){
   }
  });
  db.migrations=db.migrations||{};
- if(!db.migrations.kbr1PacketCustomersV3){db.migrations.kbr1PacketCustomersV3=true;changed=true;}
+ if(!db.migrations.kbr1PacketCustomersV4){db.migrations.kbr1PacketCustomersV4=true;changed=true;}
  return changed;
 }
 function applyShilpiGroupUpdate(){
