@@ -2533,19 +2533,26 @@ function refreshMetrics(){let t=calcDay();$('nCustomers').textContent=db.custome
 function displayProductName(it){if(isCurd(it))return 'Heritage Curd packet';if(isSmallMilk(it))return 'Heritage Small packet';return it.brand+' '+it.type;}
 function applyKbr1PacketCustomerUpdate(){
  if(!Array.isArray(db.customers))return false;
- const desired=[{"id":"cust083","name":"KBR 1 APT","location":"301","items":[{"id":"i83_1","brand":"Vijaya","type":"CM","qty":1.5,"pricePerLitre":64}]},{"id":"cust084","name":"KBR 1 APT","location":"302","items":[{"id":"i84_1","brand":"Amul","type":"TM","qty":1,"pricePerLitre":62}]},{"id":"cust085","name":"KBR 1 APT","location":"304","items":[{"id":"i85_1","brand":"Vijaya","type":"TM","qty":1.5,"pricePerLitre":64}]},{"id":"cust086","name":"KBR 1 APT","location":"402","items":[{"id":"i86_1","brand":"Heritage","type":"TM","qty":1,"pricePerLitre":66}]},{"id":"cust087","name":"KBR 1 APT","location":"501","items":[{"id":"i87_1","brand":"Amul","type":"TM","qty":0.5,"pricePerLitre":62}]},{"id":"cust088","name":"KBR 1 APT","location":"502","items":[{"id":"i88_1","brand":"Heritage","type":"TM","qty":0.5,"pricePerLitre":66}]},{"id":"cust089","name":"KBR 1 APT","location":"504","items":[{"id":"i89_1","brand":"Amul","type":"TM","qty":0.5,"pricePerLitre":62}]},{"id":"cust090","name":"KBR 1 APT","location":"Watchman","items":[{"id":"i90_1","brand":"Amul","type":"TM","qty":0.5,"pricePerLitre":62}]}];
- const desiredIds=new Set(desired.map(c=>c.id));
- const isKbr1=c=>String(c.name||'').trim().toLowerCase()==='kbr 1 apt';
+ const groundFloor={id:'cust054',name:'KBR 1 APT',location:'Ground floor',items:[
+  {id:'i54_1',brand:'Heritage',type:'TM',qty:3},
+  {id:'i54_2',brand:'Vijaya',type:'CM',qty:1.5},
+  {id:'i54_3',brand:'Amul',type:'TM',qty:2.5}
+ ]};
+ const desired=[
+  {id:'cust083',name:'301',location:'3rd floor',items:[{id:'i83_1',brand:'Vijaya',type:'CM',qty:1.5,pricePerLitre:64}]},
+  {id:'cust084',name:'302',location:'3rd floor',items:[{id:'i84_1',brand:'Amul',type:'TM',qty:1,pricePerLitre:62}]},
+  {id:'cust085',name:'304',location:'3rd floor',items:[{id:'i85_1',brand:'Vijaya',type:'TM',qty:1.5,pricePerLitre:64}]},
+  {id:'cust086',name:'402',location:'4th floor',items:[{id:'i86_1',brand:'Heritage',type:'TM',qty:1,pricePerLitre:66}]},
+  {id:'cust087',name:'501',location:'5th floor',items:[{id:'i87_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]},
+  {id:'cust088',name:'502',location:'5th floor',items:[{id:'i88_1',brand:'Heritage',type:'TM',qty:0.5,pricePerLitre:66}]},
+  {id:'cust089',name:'504',location:'5th floor',items:[{id:'i89_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]},
+  {id:'cust090',name:'Watchman',location:'Watchman',items:[{id:'i90_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]}
+ ];
  let changed=false;
- // Remove obsolete KBR 1 records (including the old Ground floor record), but keep attendance for the new flat IDs.
- const obsolete=db.customers.filter(c=>isKbr1(c)&&!desiredIds.has(c.id));
- if(obsolete.length){
-  const obsoleteIds=obsolete.map(c=>c.id);
-  db.customers=db.customers.filter(c=>!obsoleteIds.includes(c.id));
-  Object.keys(db.days||{}).forEach(date=>obsoleteIds.forEach(id=>{if(db.days[date])delete db.days[date][id];}));
-  changed=true;
- }
- // Add missing flats and correct their product/rate details without resetting their attendance.
+ // Keep the original Ground floor customer. Recreate its customer details only if missing.
+ let ground=db.customers.find(c=>c.id==='cust054');
+ if(!ground){db.customers.push(JSON.parse(JSON.stringify(groundFloor)));changed=true;}
+ // Add/update the flat-specific customers. Never clear attendance or delete existing customer records.
  desired.forEach(wanted=>{
   const existing=db.customers.find(c=>c.id===wanted.id);
   if(!existing){db.customers.push(JSON.parse(JSON.stringify(wanted)));changed=true;return;}
@@ -2554,7 +2561,7 @@ function applyKbr1PacketCustomerUpdate(){
   }
  });
  db.migrations=db.migrations||{};
- if(!db.migrations.kbr1PacketCustomersV1){db.migrations.kbr1PacketCustomersV1=true;changed=true;}
+ if(!db.migrations.kbr1PacketCustomersV2){db.migrations.kbr1PacketCustomersV2=true;changed=true;}
  return changed;
 }
 function applyShilpiGroupUpdate(){
