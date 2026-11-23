@@ -2533,11 +2533,6 @@ function refreshMetrics(){let t=calcDay();$('nCustomers').textContent=db.custome
 function displayProductName(it){if(isCurd(it))return 'Heritage Curd packet';if(isSmallMilk(it))return 'Heritage Small packet';return it.brand+' '+it.type;}
 function applyKbr1PacketCustomerUpdate(){
  if(!Array.isArray(db.customers))return false;
- const groundFloor={id:'cust054',name:'KBR 1 APT',location:'Ground floor',items:[
-  {id:'i54_1',brand:'Heritage',type:'TM',qty:3},
-  {id:'i54_2',brand:'Vijaya',type:'CM',qty:1.5},
-  {id:'i54_3',brand:'Amul',type:'TM',qty:2.5}
- ]};
  const desired=[
   {id:'cust083',name:'301',location:'3rd floor',items:[{id:'i83_1',brand:'Vijaya',type:'CM',qty:1.5,pricePerLitre:64}]},
   {id:'cust084',name:'302',location:'3rd floor',items:[{id:'i84_1',brand:'Amul',type:'TM',qty:1,pricePerLitre:62}]},
@@ -2549,9 +2544,10 @@ function applyKbr1PacketCustomerUpdate(){
   {id:'cust090',name:'Watchman',location:'Watchman',items:[{id:'i90_1',brand:'Amul',type:'TM',qty:0.5,pricePerLitre:62}]}
  ];
  let changed=false;
- // Keep the original Ground floor customer. Recreate its customer details only if missing.
- let ground=db.customers.find(c=>c.id==='cust054');
- if(!ground){db.customers.push(JSON.parse(JSON.stringify(groundFloor)));changed=true;}
+ // Remove only the old KBR 1 Ground floor customer. Keep all attendance history untouched.
+ const beforeGroundRemoval=db.customers.length;
+ db.customers=db.customers.filter(c=>c.id!=='cust054');
+ if(db.customers.length!==beforeGroundRemoval)changed=true;
  // Add/update the flat-specific customers. Never clear attendance or delete existing customer records.
  desired.forEach(wanted=>{
   const existing=db.customers.find(c=>c.id===wanted.id);
@@ -2561,7 +2557,7 @@ function applyKbr1PacketCustomerUpdate(){
   }
  });
  db.migrations=db.migrations||{};
- if(!db.migrations.kbr1PacketCustomersV2){db.migrations.kbr1PacketCustomersV2=true;changed=true;}
+ if(!db.migrations.kbr1PacketCustomersV3){db.migrations.kbr1PacketCustomersV3=true;changed=true;}
  return changed;
 }
 function applyShilpiGroupUpdate(){
@@ -2603,8 +2599,8 @@ function buildCustomerGroups(filteredCustomers,allCustomers){
  const keyFor=c=>{
   const name=String(c.name||c.customerName||c.customer_name||c.fullName||c.customer||'').trim();
   const loc=String(c.location||c.address||c.floor||'').trim();
-  // Keep KBR 1 APT flat-number customers grouped with the original Ground floor record.
-  if(c.id==='cust054'||/^cust08[3-9]$/.test(String(c.id||''))||c.id==='cust090')return 'kbr 1 apt';
+  // Keep the eight KBR 1 flat/watchman customers grouped together.
+  if(/^cust08[3-9]$/.test(String(c.id||''))||c.id==='cust090')return 'kbr 1 apt';
   if(aptWords.test(name))return name.toLowerCase().replace(/\s+/g,' ').trim();
   if(aptWords.test(loc)){const m=loc.match(/^(.+?\b(?:apartment|apartments|apt|residency|residences|towers|tower|heights|enclave|complex|flats)\b)/i);return (m?m[1]:loc).toLowerCase().replace(/\s+/g,' ').trim();}
   const alias=known.find(x=>x.alias&&(loc.toLowerCase()===x.alias||loc.toLowerCase().startsWith(x.alias+' ')));
@@ -2613,7 +2609,7 @@ function buildCustomerGroups(filteredCustomers,allCustomers){
  const map=new Map(),individual=[];
  (filteredCustomers||[]).forEach(c=>{const key=keyFor(c);if(!key){individual.push(c);return;}if(!map.has(key))map.set(key,[]);map.get(key).push(c);});
  const groups=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,customers])=>({key,label:(allCustomers||[]).find(x=>String(x.name||'').toLowerCase().replace(/\s+/g,' ').trim()===key)?.name||key,customers:customers.sort((a,b)=>{
-   const rank=c=>c.id==='cust054'?0:c.id==='cust083'||c.id==='cust084'||c.id==='cust085'?1:c.id==='cust086'?2:c.id==='cust087'||c.id==='cust088'||c.id==='cust089'?3:4;
+   const rank=c=>c.id==='cust083'||c.id==='cust084'||c.id==='cust085'?0:c.id==='cust086'?1:c.id==='cust087'||c.id==='cust088'||c.id==='cust089'?2:3;
    const diff=rank(a)-rank(b);
    return diff||String(a.location||'').localeCompare(String(b.location||''),undefined,{numeric:true})||String(a.name||'').localeCompare(String(b.name||''),undefined,{numeric:true});
   })}));
