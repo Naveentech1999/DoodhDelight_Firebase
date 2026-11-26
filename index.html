@@ -3122,6 +3122,7 @@ function downloadCustomerBillingExcel(){
    if(history){
     rateRows.push([parts[0],parts.slice(1).join('|'),'Before '+history.effectiveFrom,Number(history.oldRate)||0]);
     rateRows.push([parts[0],parts.slice(1).join('|'),history.effectiveFrom+' onward',Number(history.newRate)||0]);
+    (history.subsequentRates||[]).sort((a,b)=>a.effectiveFrom.localeCompare(b.effectiveFrom)).forEach(x=>rateRows.push([parts[0],parts.slice(1).join('|'),x.effectiveFrom+' onward',Number(x.rate)||0]));
    }else rateRows.push([parts[0],parts.slice(1).join('|'),'Current configured rate',Number(v)||0]);
   }
  });
