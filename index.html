@@ -2523,7 +2523,7 @@ const AMUL_RATES={'Amul|TM':{before:60,from:62},'Amul|Gold':{before:80,from:78},
 const BRAND_NEW_RATES_FROM='2026-11-25';
 const BRAND_RATE_CHANGES={'Heritage|TM':34,'Heritage|CM':34,'Vijaya|TM':33,'Vijaya|CM':33,'Vijaya|SM':35,'Vijaya|WM':41};
 function applyAmulPriceUpdate(){let changed=false;db.priceChanges=db.priceChanges||{};if(db.priceChanges.amulEffectiveFrom!==AMUL_NEW_RATES_FROM){db.priceChanges.amulEffectiveFrom=AMUL_NEW_RATES_FROM;changed=true;}Object.entries(AMUL_RATES).forEach(([k,v])=>{if(Number(db.prices[k])!==v.from){db.prices[k]=v.from;changed=true;}});return changed;}
-function applyBrandRateUpdate(){let changed=false;db.priceChanges=db.priceChanges||{};db.priceChanges.brandRates??={};Object.entries(BRAND_NEW_RATES).forEach(([k,newRate])=>{if(!db.priceChanges.brandRates[k]){db.priceChanges.brandRates[k]={effectiveFrom:BRAND_NEW_RATES_FROM,oldRate:Number(db.prices[k]||0),newRate};changed=true;}else{const history=db.priceChanges.brandRates[k];if(history.effectiveFrom!==BRAND_NEW_RATES_FROM||Number(history.newRate)!==newRate){history.effectiveFrom=BRAND_NEW_RATES_FROM;history.newRate=newRate;changed=true;}}if(Number(db.prices[k])!==newRate){db.prices[k]=newRate;changed=true;}});return changed;}
+function applyBrandRateUpdate(){let changed=false;db.priceChanges=db.priceChanges||{};db.priceChanges.brandRates??={};Object.entries(BRAND_RATE_CHANGES).forEach(([k,newRate])=>{if(!db.priceChanges.brandRates[k]){db.priceChanges.brandRates[k]={effectiveFrom:BRAND_NEW_RATES_FROM,oldRate:Number(db.prices[k]||0),newRate};changed=true;}else{const history=db.priceChanges.brandRates[k];if(history.effectiveFrom!==BRAND_NEW_RATES_FROM||Number(history.newRate)!==newRate){history.effectiveFrom=BRAND_NEW_RATES_FROM;history.newRate=newRate;changed=true;}}if(Number(db.prices[k])!==newRate){db.prices[k]=newRate;changed=true;}});return changed;}
 const price=(it,date=$('date')?.value||todayISO())=>{if(it?.pricePerLitre!==undefined&&it?.pricePerLitre!==null&&Number.isFinite(Number(it.pricePerLitre)))return Number(it.pricePerLitre);const k=key(it),rates=AMUL_RATES[k];if(rates)return date<AMUL_NEW_RATES_FROM?rates.before:rates.from;const brandHistory=db.priceChanges?.brandRates?.[k];if(brandHistory)return date<brandHistory.effectiveFrom?Number(brandHistory.oldRate||0):Number(brandHistory.newRate||0);return Number(db.prices[k]||0)};
 const itemAmount=(c,it,date=$('date').value)=>net(c,it)*(isPacketItem(it)?2:1)*price(it,date);
 db.customers.forEach(c=>c.items.forEach(it=>{if((it.id==='i6_1'||it.id==='i25_1')&&it.brand==='Heritage'&&it.type==='Cow Milk')it.type='CM';if(it.id==='i42_1'||it.id==='i43_1'){it.brand='Amul';it.type='TM';it.qty=1;}if(isCurd(it))db.prices[key(it)]=8;else if(isSmallMilk(it))db.prices[key(it)]=8;}));
@@ -3117,7 +3117,13 @@ function downloadCustomerBillingExcel(){
   if(amul){
    rateRows.push([parts[0],parts.slice(1).join('|'),'Before '+AMUL_NEW_RATES_FROM,amul.before]);
    rateRows.push([parts[0],parts.slice(1).join('|'),AMUL_NEW_RATES_FROM+' onward',amul.from]);
-  }else rateRows.push([parts[0],parts.slice(1).join('|'),'Current configured rate',Number(v)||0]);
+  }else{
+   const history=db.priceChanges?.brandRates?.[k];
+   if(history){
+    rateRows.push([parts[0],parts.slice(1).join('|'),'Before '+history.effectiveFrom,Number(history.oldRate)||0]);
+    rateRows.push([parts[0],parts.slice(1).join('|'),history.effectiveFrom+' onward',Number(history.newRate)||0]);
+   }else rateRows.push([parts[0],parts.slice(1).join('|'),'Current configured rate',Number(v)||0]);
+  }
  });
  const wb=XLSX.utils.book_new();
  const add=(name,rows,widths)=>{
