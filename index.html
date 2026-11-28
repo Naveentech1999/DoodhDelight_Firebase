@@ -2681,10 +2681,11 @@ function renderList(){
   const card=document.querySelector('[data-customer-card="'+CSS.escape(id)+'"]');if(card)card.open=true;
   say(name+' customer details updated.');
  });
- document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('[data-status]').forEach(b=>b.onclick=event=>{
+  event.preventDefault();event.stopPropagation();
   let c=db.customers.find(x=>x.id===b.dataset.id);if(!c)return;
-  getEntry(c).status=b.dataset.status;save();renderList();refreshMetrics();
-  const card=document.querySelector('[data-customer-card="'+CSS.escape(c.id)+'"]');if(card)card.open=true;
+  const customerId=c.id;getEntry(c).status=b.dataset.status;save();renderList();refreshMetrics();
+  const card=document.querySelector('[data-customer-card="'+CSS.escape(customerId)+'"]');if(card)card.open=true;
  });
  document.querySelectorAll('[data-field]').forEach(i=>i.oninput=()=>{
   let c=db.customers.find(x=>x.id===i.dataset.c),e=getEntry(c);if(!c)return;
