@@ -2683,9 +2683,12 @@ function renderList(){
  });
  document.querySelectorAll('[data-status]').forEach(b=>b.onclick=event=>{
   event.preventDefault();event.stopPropagation();
-  let c=db.customers.find(x=>x.id===b.dataset.id);if(!c)return;
-  const customerId=c.id;getEntry(c).status=b.dataset.status;save();renderList();refreshMetrics();
-  const card=document.querySelector('[data-customer-card="'+CSS.escape(customerId)+'"]');if(card)card.open=true;
+  let customer=db.customers.find(x=>x.id===b.dataset.id);if(!customer)return;
+  const nextStatus=b.dataset.status,card=document.querySelector('[data-customer-card="'+CSS.escape(customer.id)+'"]');
+  getEntry(customer).status=nextStatus;save();
+  if(card){card.open=true;const badge=card.querySelector('.dw-customer-head .status, .dw-customer-head .dw-cust-status, .status');if(badge){badge.className='status '+nextStatus;badge.textContent=nextStatus==='unmarked'?'NOT MARKED':nextStatus.toUpperCase();}
+    const present=card.querySelector('[data-status="present"]'),absent=card.querySelector('[data-status="absent"]');if(present)present.classList.toggle('yes',nextStatus==='present');if(absent)absent.classList.toggle('no',nextStatus==='absent');}
+  refreshMetrics();
  });
  document.querySelectorAll('[data-field]').forEach(i=>i.oninput=()=>{
   let c=db.customers.find(x=>x.id===i.dataset.c),e=getEntry(c);if(!c)return;
