@@ -2686,9 +2686,23 @@ function renderList(){
   let customer=db.customers.find(x=>x.id===b.dataset.id);if(!customer)return;
   const nextStatus=b.dataset.status,card=document.querySelector('[data-customer-card="'+CSS.escape(customer.id)+'"]');
   getEntry(customer).status=nextStatus;save();
-  if(card){card.open=true;const badge=card.querySelector('.dw-customer-head .status, .dw-customer-head .dw-cust-status, .status');if(badge){badge.className='status '+nextStatus;badge.textContent=nextStatus==='unmarked'?'NOT MARKED':nextStatus.toUpperCase();}
-    const present=card.querySelector('[data-status="present"]'),absent=card.querySelector('[data-status="absent"]');if(present)present.classList.toggle('yes',nextStatus==='present');if(absent)absent.classList.toggle('no',nextStatus==='absent');}
-  refreshMetrics();
+  if(card){
+   card.open=true;
+   const badge=card.querySelector('.dw-customer-head .status, .dw-customer-head .dw-cust-status, .status');
+   if(badge){badge.className='status '+nextStatus;badge.textContent=nextStatus==='unmarked'?'NOT MARKED':nextStatus.toUpperCase();}
+   const present=card.querySelector('[data-status="present"]'),absent=card.querySelector('[data-status="absent"]');
+   if(present)present.classList.toggle('yes',nextStatus==='present');
+   if(absent)absent.classList.toggle('no',nextStatus==='absent');
+   card.querySelectorAll('[data-field]').forEach(input=>input.disabled=nextStatus!=='present');
+   card.querySelectorAll('[data-row-total]').forEach(box=>{
+    const item=customer.items.find(x=>x.id===box.dataset.rowTotal?.split('|')[1])||customer.items.find(x=>x.id===box.getAttribute('data-row-total').split('|').slice(1).join('|'));
+    if(item){const q=nextStatus==='present'?net(customer,item):0,amt=nextStatus==='present'?itemAmount(customer,item):0;box.innerHTML='<span>NET: '+Math.round(q*2)+' packets</span><span>AMOUNT: '+money(amt)+'</span>';}
+   });
+   const total=nextStatus==='present'?customer.items.reduce((sum,it)=>sum+itemAmount(customer,it),0):0;
+   const ct=card.querySelector('[data-customer-total]');
+   if(ct)ct.innerHTML='Customer daily amount: <b>'+money(total)+'</b>';
+  }
+  refreshMetrics();if(!$('daily').classList.contains('hidden'))renderDaily();
  });
  document.querySelectorAll('[data-field]').forEach(i=>i.oninput=()=>{
   let c=db.customers.find(x=>x.id===i.dataset.c),e=getEntry(c);if(!c)return;
