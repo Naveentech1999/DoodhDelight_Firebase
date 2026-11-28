@@ -8,9 +8,9 @@
   "theme_color": "#fc8019",
   "icons": [
     {
-      "src": "./assets/doodh-delight-rider-icon.svg",
+      "src": "./assets/Cheerful%20Milk%20Delivery%20Scooter%20Ride.png",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
