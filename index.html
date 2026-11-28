@@ -2925,22 +2925,6 @@ function bindMonthlyCharges(){
  });
 }
 function printPage(title,body){let w=window.open('','_blank');if(!w){say('Allow pop-ups to print or save PDF');return}w.document.write('<html><head><title>'+esc(title)+'</title><style>body{font:13px Arial;padding:24px}.bill-page{page-break-after:always;break-after:page}.bill-page:last-child{page-break-after:auto;break-after:auto}table{width:100%;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid #ddd;text-align:left}h1{color:#1769B2}</style></head><body><h1>'+esc(title)+'</h1>'+body+'
-<style>
-/* Doodh Delight startup logo splash */
-#dw-startup-splash{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;opacity:1;transition:opacity .45s ease;}
-#dw-startup-splash.dw-hide{opacity:0;pointer-events:none}
-#dw-startup-splash img{width:min(82vw,420px);max-height:58vh;object-fit:contain;border-radius:18px}
-#dw-startup-splash .dw-splash-title{margin-top:18px;color:#155b96;font-weight:850;font-size:24px;letter-spacing:.2px}
-#dw-startup-splash .dw-splash-sub{margin-top:6px;color:#6b7c88;font-size:13px}
-@media(prefers-reduced-motion:reduce){#dw-startup-splash{transition:none}}
-</style>
-<div id="dw-startup-splash" aria-label="Doodh Delight loading">
- <img src="https://raw.githubusercontent.com/Naveentech1999/DoodhDelight_Firebase/main/assets/file_00000000303082119bf95c08cca884c1.gif" alt="Doodh Delight milk delivery rider logo">
- <div class="dw-splash-title">Doodh Delight</div><div class="dw-splash-sub">Daily Milk Delivery</div>
-</div>
-<script>
-(()=>{const splash=document.getElementById('dw-startup-splash');if(!splash)return;const dismiss=()=>{splash.classList.add('dw-hide');setTimeout(()=>splash.remove(),500)};window.addEventListener('load',()=>setTimeout(dismiss,1700),{once:true});setTimeout(dismiss,4500);})();
-</script>
 </body></html>');w.document.close();w.focus();setTimeout(()=>w.print(),300)}
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));['register','daily','monthly','downloads','settings'].forEach(id=>document.getElementById(id)?.classList.toggle('hidden',id!==b.dataset.tab));if(b.dataset.tab==='daily')renderDaily();if(b.dataset.tab==='settings')renderPrices();if(b.dataset.tab==='monthly')fillCustomerSelect();if(b.dataset.tab==='downloads'){ $('downloadMonth').value=$('month').value;renderDownloadBills()}});
 function fillCustomerSelect(){$('billCustomer').innerHTML=db.customers.map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.location)}</option>`).join('')}
