@@ -2306,7 +2306,7 @@ html body>header.dw-dashboard-header .dw-dashboard-brand-copy span{
 }
 </style>
 
-</head><body>
+</head><body><div id="dd-gif-splash" aria-label="Doodh Delight loading"><img src="./assets/file_00000000303082119bf95c08cca884c1.gif" alt="Doodh Delight milk delivery animation"></div>
 <div class="dw-launch-splash" id="dwLaunchSplash" role="status" aria-label="Loading">
  <div class="dw-hero-window"><img class="dw-hero-art" src="https://raw.githubusercontent.com/Naveentech1999/Milk-Attendance-APP/main/assets/milk-delivery-rider.gif.gif?v=74" alt="Milk delivery rider animation"></div>
 </div>
@@ -2924,7 +2924,7 @@ function bindMonthlyCharges(){
   $('monthOutput').innerHTML=monthHtml();bindMonthlyCharges();say('Monthly delivery charge saved');
  });
 }
-function printPage(title,body){let w=window.open('','_blank');if(!w){say('Allow pop-ups to print or save PDF');return}w.document.write('<html><head><title>'+esc(title)+'</title><style>body{font:13px Arial;padding:24px}.bill-page{page-break-after:always;break-after:page}.bill-page:last-child{page-break-after:auto;break-after:auto}table{width:100%;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid #ddd;text-align:left}h1{color:#1769B2}</style></head><body><h1>'+esc(title)+'</h1>'+body+'</body></html>');w.document.close();w.focus();setTimeout(()=>w.print(),300)}
+function printPage(title,body){let w=window.open('','_blank');if(!w){say('Allow pop-ups to print or save PDF');return}w.document.write('<html><head><title>'+esc(title)+'</title><style>body{font:13px Arial;padding:24px}.bill-page{page-break-after:always;break-after:page}.bill-page:last-child{page-break-after:auto;break-after:auto}table{width:100%;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid #ddd;text-align:left}h1{color:#1769B2}</style><style id="dd-gif-splash-style">#dd-gif-splash{position:fixed;inset:0;z-index:999999;background:#fff;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity .35s ease}#dd-gif-splash img{width:min(88vw,520px);max-height:72vh;object-fit:contain}#dd-gif-splash.dd-fade{opacity:0;pointer-events:none}@media(prefers-reduced-motion:reduce){#dd-gif-splash{transition:none}}</style></head><body><h1>'+esc(title)+'</h1>'+body+'</body></html>');w.document.close();w.focus();setTimeout(()=>w.print(),300)}
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));['register','daily','monthly','downloads','settings'].forEach(id=>document.getElementById(id)?.classList.toggle('hidden',id!==b.dataset.tab));if(b.dataset.tab==='daily')renderDaily();if(b.dataset.tab==='settings')renderPrices();if(b.dataset.tab==='monthly')fillCustomerSelect();if(b.dataset.tab==='downloads'){ $('downloadMonth').value=$('month').value;renderDownloadBills()}});
 function fillCustomerSelect(){$('billCustomer').innerHTML=db.customers.map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.location)}</option>`).join('')}
 $('date').onchange=()=>{renderList();renderDaily()};$('today').onclick=()=>{$('date').value=todayISO();renderList();renderDaily()};$('search').oninput=renderList;$('filter').onchange=renderList;function renderManagedCustomers(){
@@ -3249,4 +3249,4 @@ if ('serviceWorker' in navigator) {
  updateHome();
  show('home');
 })();
-</script></main></body></html>
+</script></main><script id="dd-gif-splash-script">(()=>{const el=document.getElementById('dd-gif-splash');if(!el)return;let done=false;const hide=()=>{if(done)return;done=true;el.classList.add('dd-fade');setTimeout(()=>el.remove(),400)};window.addEventListener('load',()=>setTimeout(hide,2100),{once:true});setTimeout(hide,5000);})();</script></body></html>
