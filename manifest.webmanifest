@@ -8,9 +8,10 @@
   "theme_color": "#fc8019",
   "icons": [
     {
-      "src": "./assets/doodhwala-bike-app-icon.svg",
+      "src": "./assets/doodh-delight-rider-icon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
